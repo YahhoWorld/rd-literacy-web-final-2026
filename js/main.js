@@ -27,8 +27,12 @@ const createCanvas=(w,h)=>{
 	c.height=cy*dpr;
 	ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-	let cvs=new Canvas(ctx,w,h,cx,cy);
-	canvases.push(cvs);
+
+
+	let cvs=new Canvas(c,ctx,w,h,cx,cy);
+	let ptr=new Painter();
+	ptr.set(cvs);
+	canvases.push({canvas:cvs,painter:ptr});
 	cvs.paintTest();
 	cvs.showCanvas();
 }

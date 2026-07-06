@@ -4,8 +4,9 @@
 
 class Canvas {
 	constructor(
-		ctx/*CanvasContext2D*/, width, height,vwidth,vheight
+		canvas,ctx/*CanvasContext2D*/, width, height,vwidth,vheight
 	) {
+		this.canvas=canvas;
 		this.ctx = ctx;
 
 		this.width = width;	// 描画画像自体の内部サイズ
@@ -33,8 +34,22 @@ class Canvas {
 		return (this.width * h + w) * 4;
 	}
 
+	containsOffset(x,y){
+		return 0<x&x<this.width*this.scale
+			&& 0<y&y<this.height*this.scale;
+	}
+
+	offsetToLocal(x,y){
+		if(!this.containsOffset(x,y))return [-1,-1];
+		return [
+			Math.floor(x/this.scale),
+			Math.floor(y/this.scale)
+		];
+	}
+
 	paint(w, h, r, g, b, a) {
 		let pos = this.whToPos(w, h);
+		if(pos<0||pos>=this.pixels.length)return;
 		this.pixels[pos] = r;
 		this.pixels[pos + 1] = g;
 		this.pixels[pos + 2] = b;
@@ -93,5 +108,12 @@ class Canvas {
 			}
 		}
 		console.log("painted");
+	}
+
+	resizeCanvas(w,h){
+		this.vwidth=w;
+		this.vheight=h;
+
+		this.scale=Math.min(w/this.width,h/this.height);
 	}
 }
