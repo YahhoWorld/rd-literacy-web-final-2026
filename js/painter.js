@@ -3,6 +3,9 @@ class Painter {
 		this.canvas = null;
 		this.brush = { r: 0, g: 0, b: 0, a: 255 };
 		this.isDrawing = false;
+
+		this.pointerX=-1;
+		this.pointerY=-1;
 	}
 
 	set(canvas) {
@@ -20,22 +23,37 @@ class Painter {
 		this.isDrawing = false;
 	}
 
-	mouseupEventListener=(e)=> {
+	mouseupEventListener = (e) => {
 		this.isDrawing = false;
 		console.log("brush up");
+		this.pointerX=e.offsetX;
+		this.pointerY=e.offsetY;
 	}
 
-	mousedownEventListener=(e)=> {
+	mousedownEventListener = (e) => {
 		this.isDrawing = true;
+		this.pointerX=e.offsetX;
+		this.pointerY=e.offsetY;
+		this.paintAtPointer();
 		console.log("brush down");
 	}
 
-	mousemoveEventListener=(e)=> {
-		if(!this.isDrawing)return;
-		const [x, y] = this.canvas.offsetToLocal(e.offsetX, e.offsetY);
-		console.log(`x,y : ${x}, ${y}`)
-		this.canvas.paint(x, y, this.brush.r, this.brush.g, this.brush.b, this.brush.a);
+	mousemoveEventListener = (e) => {
+		if (!this.isDrawing) return;
+		this.pointerX=e.offsetX;
+		this.pointerY=e.offsetY;
+		this.paintAtPointer();
+	}
+
+	paintAtPointer(){
+		const [x, y] = this.canvas.offsetToLocal(this.pointerX, this.pointerY);
+		console.log(`x,y : ${x}, ${y}`);
+		this.paint(x, y, this.brush.r, this.brush.g, this.brush.b, this.brush.a);
 		this.canvas.showCanvas();
+	}
+
+	paint(x, y, r, g, b, a) {
+		this.canvas.paint(x, y, r, g, b, a);
 	}
 
 
