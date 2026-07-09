@@ -3,10 +3,10 @@
 // let vheight = 100;
 
 class Canvas {
+
 	constructor(
-		canvas,ctx/*CanvasContext2D*/, width, height,vwidth,vheight
+		id,ctx/*CanvasContext2D*/, width, height,vwidth,vheight
 	) {
-		this.canvas=canvas;
 		this.ctx = ctx;
 
 		this.width = width;	// 描画画像自体の内部サイズ
@@ -28,6 +28,8 @@ class Canvas {
 		this.scale=Math.min(vwidth/width,vheight/height);
 
 		console.log(`canvas made with w:${width}, h:${height}`);
+
+		this.id=id;
 	}
 
 	whToPos(w, h) {
@@ -69,12 +71,14 @@ class Canvas {
 	showCanvas = () => {
 		console.log("showing canvas...");
 		this.offCtx.fillStyle = this.background;
+		this.offCtx.clearRect(0,0,this.width,this.height);
 		this.offCtx.fillRect(0, 0, this.width, this.height);
 
 		const img = this.offCtx.createImageData(this.width, this.height);
 		img.data.set(this.pixels);
 		this.offCtx.putImageData(img, 0, 0);
 
+		this.ctx.clearRect(0,0,this.vwidth,this.vheight);
 		this.ctx.imageSmoothingEnabled = false;
 		this.ctx.drawImage(
 			this.offCanvas,
