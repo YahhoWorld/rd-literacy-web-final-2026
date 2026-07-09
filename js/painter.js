@@ -1,24 +1,44 @@
 class Painter {
-	constructor() {
+	constructor(id) {
 		this.canvas = null;
 		this.brush = { r: 0, g: 0, b: 0, a: 255 };
 		this.isDrawing = false;
 
 		this.pointerX=-1;
 		this.pointerY=-1;
+
+		this.controller=null;
+
+		this.id=id;
 	}
 
-	set(canvas) {
+	getController(){
+		this.brush.r=this.controller.querySelector(".r").value;
+		this.brush.g=this.controller.querySelector(".g").value;
+		this.brush.b=this.controller.querySelector(".b").value;
+		this.brush.a=this.controller.querySelector(".a").value;
+		console.log(`read contoller brush: ${this.brush}`);
+	}
+
+	set() {
+		let cn=getCanvas(this.id);
+		console.log(cn);
+		let c=cn.htmlcanv;
 		if (this.canvas) {
-			this.canvas.canvas.removeEventListener("mousemove", this.mousemoveEventListener);
-			this.canvas.canvas.removeEventListener("mousedown", this.mousedownEventListener);
-			this.canvas.canvas.removeEventListener("mouseup", this.mouseupEventListener);
+			c.removeEventListener("mousemove", this.mousemoveEventListener);
+			c.removeEventListener("mousedown", this.mousedownEventListener);
+			c.removeEventListener("mouseup", this.mouseupEventListener);
 		}
-		console.log(canvas);
-		this.canvas = canvas;
-		this.canvas.canvas.addEventListener("mousemove", this.mousemoveEventListener);
-		this.canvas.canvas.addEventListener("mousedown", this.mousedownEventListener);
-		this.canvas.canvas.addEventListener("mouseup", this.mouseupEventListener);
+		console.log(c);
+		c.addEventListener("mousemove", this.mousemoveEventListener);
+		c.addEventListener("mousedown", this.mousedownEventListener);
+		c.addEventListener("mouseup", this.mouseupEventListener);
+
+		const fragment=document.getElementById("canvas-controller-template").content.cloneNode(true);
+		fragment.querySelector("form").addEventListener("change",()=>this.getController());
+		this.controller=fragment.querySelector(".canvas-controller");
+		cn.doc.appendChild(fragment);
+		this.canvas = cn.canvas;
 
 		this.isDrawing = false;
 	}
