@@ -30,14 +30,12 @@
       <div class="canvas-controller">
         <form>
         <div class="color">
-          <p>色(RGBA)</p>
-          <label><span>赤</span><input type="number" step="1" min="0" max="255" class="r" value="0"></label><br>
-          <label><span>緑</span><input type="number" step="1" min="0" max="255" class="g" value="0"></label><br>
-          <label><span>青</span><input type="number" step="1" min="0" max="255" class="b" value="0"></label><br>
-          <label><span>透過度</span><input type="number" step="1" min="0" max="255" class="a" value="255"></label>
+          <p>ブラシの設定</p>
+          <div><label>色:<input type="color" class="color-input"></label></div>
+          <div><label><span>透過度:</span><input type="number" step="1" min="0" max="255" class="a" value="255"></label></div>
         </div>
         <div>
-          <label><span>線の太さ</span><input type="number" min="1" class="weight" value="1"></label>
+          <label><span>線の太さ:</span><input type="number" min="1" class="weight" value="1"></label>
         </div>
         </form>
       </div>

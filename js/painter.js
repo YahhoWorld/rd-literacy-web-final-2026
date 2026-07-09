@@ -13,10 +13,11 @@ class Painter {
 	}
 
 	getController(){
-		this.brush.r=this.controller.querySelector(".r").value;
-		this.brush.g=this.controller.querySelector(".g").value;
-		this.brush.b=this.controller.querySelector(".b").value;
-		this.brush.a=this.controller.querySelector(".a").value;
+		let col=this.controller.querySelector(".color-input");
+		this.brush.r=parseInt(col.value.slice(1,3),16);
+		this.brush.g=parseInt(col.value.slice(3,5),16);
+		this.brush.b=parseInt(col.value.slice(5,7),16);
+		this.brush.a=parseInt(this.controller.querySelector(".a").value);
 		console.log(`read contoller brush: ${this.brush}`);
 	}
 
