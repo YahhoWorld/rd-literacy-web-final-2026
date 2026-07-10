@@ -26,14 +26,17 @@ class Painter {
 		console.log(cn);
 		let c=cn.htmlcanv;
 		if (this.canvas) {
-			c.removeEventListener("mousemove", this.mousemoveEventListener);
-			c.removeEventListener("mousedown", this.mousedownEventListener);
-			c.removeEventListener("mouseup", this.mouseupEventListener);
+			c.removeEventListener("pointermove", this.mousemoveEventListener);
+			c.removeEventListener("pointerdown", this.mousedownEventListener);
+			c.removeEventListener("pointerup", this.mouseupEventListener);
 		}
 		console.log(c);
-		c.addEventListener("mousemove", this.mousemoveEventListener);
-		c.addEventListener("mousedown", this.mousedownEventListener);
-		c.addEventListener("mouseup", this.mouseupEventListener);
+		// c.addEventListener("mousemove", this.mousemoveEventListener);
+		// c.addEventListener("mousedown", this.mousedownEventListener);
+		// c.addEventListener("mouseup", this.mouseupEventListener);
+		c.addEventListener("pointermove", this.mousemoveEventListener);
+		c.addEventListener("pointerdown", this.mousedownEventListener);
+		c.addEventListener("pointerup", this.mouseupEventListener);
 
 		const fragment=document.getElementById("canvas-controller-template").content.cloneNode(true);
 		fragment.querySelector("form").addEventListener("change",()=>this.getController());
@@ -45,6 +48,7 @@ class Painter {
 	}
 
 	mouseupEventListener = (e) => {
+		e.preventDefault();
 		this.isDrawing = false;
 		console.log("brush up");
 		this.pointerX=e.offsetX;
@@ -52,6 +56,7 @@ class Painter {
 	}
 
 	mousedownEventListener = (e) => {
+		e.preventDefault();
 		this.isDrawing = true;
 		this.pointerX=e.offsetX;
 		this.pointerY=e.offsetY;
@@ -60,6 +65,7 @@ class Painter {
 	}
 
 	mousemoveEventListener = (e) => {
+		e.preventDefault();
 		if (!this.isDrawing) return;
 		this.pointerX=e.offsetX;
 		this.pointerY=e.offsetY;

@@ -29,6 +29,7 @@ const createCanvas = (w, h) => {
 	c.style.height = `${cy}px`;
 	c.width = cx * dpr;
 	c.height = cy * dpr;
+	c.style.touchAction="none";
 	ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
 	let id = nextId++;
