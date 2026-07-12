@@ -50,9 +50,13 @@ const createCanvas = (w, h) => {
 		doc: tar,
 		htmlcanv:c
 	};
-	ptr.set();
 	cvs.paintTest();
+	ptr.set();
 	cvs.showCanvas();
 
 	console.log(canvases)
+}
+
+const debugundo=()=>{
+	canvases[0].painter.undo();
 }
