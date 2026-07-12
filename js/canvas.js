@@ -7,25 +7,31 @@ class Canvas {
 	constructor(
 		id,ctx/*CanvasContext2D*/, width, height,vwidth,vheight
 	) {
+		// コンテキスト
 		this.ctx = ctx;
 
+		// サイズ
 		this.width = width;	// 描画画像自体の内部サイズ
 		this.height = height;
+		this.vwidth=vwidth;		// 実際のcanvasのサイズ
+		this.vheight=vheight;
+		this.scale=Math.min(vwidth/width,vheight/height);
 
+		// 画像
 		this.pixels = new Uint8ClampedArray(width * height * 4);	// r:i, g:i+1, b:i+2, a:i+3
 		this.pixels.fill(0xff);
+		this.guidePixels = new Uint8ClampedArray(width * height * 4);	// r:i, g:i+1, b:i+2, a:i+3
+		this.guidePixels.fill(0xff);
 
-		this.background = "white";
 
+		// 画像の処理用
 		this.offCanvas = document.createElement("canvas");
 		this.offCanvas.width = width;
 		this.offCanvas.height = height;
 		this.offCtx = this.offCanvas.getContext("2d");
 
-		this.vwidth=vwidth;		// 実際のcanvasのサイズ
-		this.vheight=vheight;
-
-		this.scale=Math.min(vwidth/width,vheight/height);
+		// 背景
+		this.background = "white";
 
 		console.log(`canvas made with w:${width}, h:${height}`);
 
@@ -58,6 +64,13 @@ class Canvas {
 		this.pixels[pos + 3] = a;
 	}
 
+	paintDirect(i,r,g,b,a){
+		this.pixels[i] = r;
+		this.pixels[i + 1] = g;
+		this.pixels[i + 2] = b;
+		this.pixels[i + 3] = a;
+	}
+
 	getcolor(w, h) {
 		let pos = this.whToPos(w, h);
 		return [
@@ -77,6 +90,9 @@ class Canvas {
 		const img = this.offCtx.createImageData(this.width, this.height);
 		img.data.set(this.pixels);
 		this.offCtx.putImageData(img, 0, 0);
+		const gimg=this.offCtx.createImageData(this.width, this.height);
+		gimg.data.set(this.guidePixels);
+		// this.offCtx.putImageData(gimg,0,0);
 
 		this.ctx.clearRect(0,0,this.vwidth,this.vheight);
 		this.ctx.imageSmoothingEnabled = false;
