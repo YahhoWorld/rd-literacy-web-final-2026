@@ -25,15 +25,17 @@ const createCanvas = (w, h) => {
 	const ctx = c.getContext("2d");
 	const dpr = window.devicePixelRatio || 1;
 	const [cx, cy] = getClientXY();
-	c.style.width = `${cx}px`;
-	c.style.height = `${cy}px`;
-	c.width = cx * dpr;
-	c.height = cy * dpr;
+	const scale=Math.min(cx/w,cy/h);
+	const [vx,vy]=[scale*w,scale*h];
+	c.style.width = `${vx}px`;
+	c.style.height = `${vy}px`;
+	c.width = vx * dpr;
+	c.height = vy * dpr;
 	c.style.touchAction="none";
 	ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
 	let id = nextId++;
-	let cvs = new Canvas(id, ctx, w, h, cx, cy);
+	let cvs = new Canvas(id, ctx, w, h, vx, vy);
 	let ptr = new Painter(id);
 	let tar = document.createElement("div");
 	tar.classList.add("canvas");
