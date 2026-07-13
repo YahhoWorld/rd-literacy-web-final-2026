@@ -12,7 +12,7 @@ nav.floating {
     background-position: center center;
     background-size: cover; display: flex;
     align-items: center;
-    cursor: url("../images/common/icon-menu.png"), auto;
+    
 }
 .first-view-text {
     width: 100%;
@@ -119,4 +119,14 @@ nav.floating {
     display:inline-block;
     padding:8px 20px;
     margin-bottom:20px;
+}
+
+.action-game{
+    background-image: url("../images/common/mainBg.png");
+    background-size: cover;
+    background-position: center;
+    padding:120px 0;
+    background-attachment: fixed;
+
+    cursor: url("../images/common/icon-menu.png"), auto;
 }
