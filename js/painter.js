@@ -103,6 +103,13 @@ class Painter {
 		c.showCanvas();
 	}
 
+	redo(){
+		this.timeline.redo();
+		const c=getCanvas(this.id).canvas;
+		this.timeline.reload(c);
+		c.showCanvas();
+	}
+
 	mouseupEventListener = (e) => {
 		e.preventDefault();
 		if(!this.isDrawing)return;

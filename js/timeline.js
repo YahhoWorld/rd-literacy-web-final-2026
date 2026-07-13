@@ -78,7 +78,7 @@ class TimeLine{
 		this.actions[this.getActionIdx(this.now)]=cmd;	// jsは配列の長さが自動拡張される(はず)
 		this.now++;
 		this.newest=this.now;
-		if(this.now-this.lastSnaped===this.snapshotInterval){
+		if(this.now-this.lastSnaped>=this.snapshotInterval){
 			this.snap();
 		}
 		if(this.actions.length>this.saveActionLimit){
