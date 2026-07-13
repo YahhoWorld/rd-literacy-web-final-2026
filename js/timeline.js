@@ -71,7 +71,7 @@ class TimeLine{
 		this.snapshots.push(tar);
 		this.snapshotTimes.push(this.now);
 		this.lastSnaped=this.now;
-		console.log(`snaped, all snapshot is ${this.snapshots.length}`);
+		console.log(`snaped, ${this.snapshots.length} snapshots`);
 	}
 
 	action(cmd){
@@ -92,6 +92,7 @@ class TimeLine{
 		if(this.now==0)return;
 		this.now--;
 		if(this.lastSnaped>this.now){
+			console.log("pop snapshot");
 			this.snapshots.pop();
 			this.snapshotTimes.pop();
 			this.lastSnaped=this.snapshotTimes[this.snapshotTimes.length-1]
@@ -99,6 +100,7 @@ class TimeLine{
 	}
 
 	redo(){
+		console.log("redo");
 		if(this.newest>this.now)this.now++;
 	}
 }
