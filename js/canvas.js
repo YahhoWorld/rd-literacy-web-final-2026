@@ -43,8 +43,8 @@ class Canvas {
 	}
 
 	containsOffset(x,y){
-		return 0<x&x<this.width*this.scale
-			&& 0<y&y<this.height*this.scale;
+		return 0<x&&x<this.width*this.scale
+			&& 0<y&&y<this.height*this.scale;
 	}
 
 	offsetToLocal(x,y){
