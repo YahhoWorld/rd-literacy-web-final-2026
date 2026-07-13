@@ -77,12 +77,41 @@ img{
     flex-direction: column;
     align-items: center;
 }
+.sns-links{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:30px;
 
-.footer-logo {
-    display: block;
-    width: 235px;
-    margin-top: 90px;
+    margin-top:40px;
 }
+
+.sns-links{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+
+    margin-bottom:50px;
+}
+
+.sns-links a{
+    display:block;
+    transition:.2s;
+}
+
+.sns-links a:hover{
+    transform:scale(1.1);
+}
+
+.sns-links img{
+    width:64px;
+    transition:.2s;
+}
+
+.sns-links img:hover{
+    filter:drop-shadow(0 0 10px #00ffff);
+}
+
 
 .copyright {
     font-size: 14px;
