@@ -55,6 +55,14 @@ class Canvas {
 		];
 	}
 
+	offsetToRealLocal(x,y){
+		if(!this.containsOffset(x,y))return [-1,-1];
+		return [
+			x/this.scale,
+			y/this.scale
+		];
+	}
+
 	paint(w, h, r, g, b, a) {
 		let pos = this.whToPos(w, h);
 		if(pos<0||pos>=this.pixels.length)return;
