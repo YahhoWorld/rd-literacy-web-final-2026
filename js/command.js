@@ -35,25 +35,24 @@ class Command {
 		console.log(`play ${this.mode}`)
 		switch (this.mode) {
 			case PAINTMODE_STROKE_CIRCLE: {
-				console.log("c")
 				for (const [x, y] of this.points) {
-					this.drawCircle(img, x, y, this.thickness, w);
+					// this.drawCircle(img, x, y, this.thickness, w);
+					drawCircle(img,x,y,this.thickness,w,this.r,this.g,this.b,this.a);
 				}
 				return;
 			}
 			case PAINTMODE_STROKE_RECT: {
-				console.log("r")
 				for(const [x,y] of this.points){
 				const ht=Math.floor(this.thickness/2);
 				for (let i = x-ht; i <= x+ht; ++i) {
-					for (let j = y-ht; j <= y+ht; ++j) {
-						const pos = this.whToPos(i,j, w);
-						img[pos] = this.r;
-						img[pos + 1] = this.g;
-						img[pos + 2] = this.b;
-						img[pos + 3] = this.a;
-						console.log("p")
-					}
+					// for (let j = y-ht; j <= y+ht; ++j) {
+					// 	const pos = this.whToPos(i,j, w);
+					// 	img[pos] = this.r;
+					// 	img[pos + 1] = this.g;
+					// 	img[pos + 2] = this.b;
+					// 	img[pos + 3] = this.a;
+					// }
+					drawRect(img,x,y,this.thickness,w,this.r,this.g,this.b,this.a);
 				}
 			}
 				return;

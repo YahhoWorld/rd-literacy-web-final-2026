@@ -60,3 +60,7 @@ const createCanvas = (w, h) => {
 const debugundo=()=>{
 	canvases[0].painter.undo();
 }
+
+const debugredo=()=>{
+	canvases[0].painter.redo();
+}
