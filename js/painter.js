@@ -31,20 +31,18 @@ class Painter {
 					this.canvas.pixels,
 					x, y,
 					this.thickness,
-					this.canvas.width,
+					this.canvas.width,this.canvas.height,
 					this.brush.r, this.brush.g, this.brush.b, this.brush.a
 				);
 				this.canvas.showCanvas();
 			},
 			frame: () => {
-				let p;
-				if (!(p = this.savePoint())) return;
-				const [x, y] = p;
+				const [x,y]=this.savePoint();
 				drawRect(
 					this.canvas.pixels,
 					x, y,
 					this.thickness,
-					this.canvas.width,
+					this.canvas.width,this.canvas.height,
 					this.brush.r, this.brush.g, this.brush.b, this.brush.a
 				);
 				this.canvas.showCanvas();
@@ -59,20 +57,18 @@ class Painter {
 					this.canvas.pixels,
 					x, y,
 					this.thickness,
-					this.canvas.width,
+					this.canvas.width,this.canvas.height,
 					this.brush.r, this.brush.g, this.brush.b, this.brush.a
 				);
 				this.canvas.showCanvas();
 			},
 			frame: () => {
-				let p;
-				if (!(p = this.savePoint())) return;
-				const [x, y] = p;
+				const [x, y] = this.savePoint();
 				drawCircle(
 					this.canvas.pixels,
 					x, y,
 					this.thickness,
-					this.canvas.width,
+					this.canvas.width,this.canvas.height,
 					this.brush.r, this.brush.g, this.brush.b, this.brush.a
 				);
 				this.canvas.showCanvas();
@@ -103,15 +99,6 @@ class Painter {
 
 	savePoint() {
 		const [nowX, nowY] = this.canvas.offsetToRealLocal(this.pointerX, this.pointerY);
-		if (this.points.length !== 0) {
-			const lastIdx = this.points.length - 1;
-			const [pX, pY] = this.points[lastIdx];
-			if (nowX === pX && nowY === pY) {
-				// 前と同じ点は保存しなくていい（よね）
-				// データ圧縮用
-				return false;
-			}
-		}
 		this.points.push([nowX, nowY]);
 		return [nowX, nowY];
 	}
@@ -140,18 +127,14 @@ class Painter {
 	}
 
 	set() {
+		console.log(`setup painter - id:${this.id}`);
 		let cn = getCanvas(this.id);
-		console.log(cn);
 		let c = cn.htmlcanv;
 		if (this.canvas) {
 			c.removeEventListener("pointermove", this.mousemoveEventListener);
 			c.removeEventListener("pointerdown", this.mousedownEventListener);
 			c.removeEventListener("pointerup", this.mouseupEventListener);
 		}
-		console.log(c);
-		// c.addEventListener("mousemove", this.mousemoveEventListener);
-		// c.addEventListener("mousedown", this.mousedownEventListener);
-		// c.addEventListener("mouseup", this.mouseupEventListener);
 		c.addEventListener("pointermove", this.mousemoveEventListener);
 		c.addEventListener("pointerdown", this.mousedownEventListener);
 		c.addEventListener("pointerup", this.mouseupEventListener);
@@ -199,7 +182,6 @@ class Painter {
 		this.isDrawing = true;
 		this.pointerX = e.offsetX;
 		this.pointerY = e.offsetY;
-		this.paintAtPointer();
 		console.log("brush down");
 		this.paintWays.get(this.paintMode).start();
 	}
@@ -210,17 +192,6 @@ class Painter {
 		this.pointerX = e.offsetX;
 		this.pointerY = e.offsetY;
 		this.paintWays.get(this.paintMode).frame();
-	}
-
-	paintAtPointer() {
-		const [x, y] = this.canvas.offsetToLocal(this.pointerX, this.pointerY);
-		console.log(`x,y : ${x}, ${y}`);
-		this.paint(x, y, this.brush.r, this.brush.g, this.brush.b, this.brush.a);
-		this.canvas.showCanvas();
-	}
-
-	paint(x, y, r, g, b, a) {
-		this.canvas.paint(x, y, r, g, b, a);
 	}
 
 
