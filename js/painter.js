@@ -19,7 +19,7 @@ class Painter {
 		this.timeline = null;
 
 		// 現在の操作
-		this.points = [];	// ペンの動かした履歴など
+		this.cmd=null;
 
 		// 初期化
 		this.paintWays = new Map();
@@ -27,53 +27,29 @@ class Painter {
 			start: () => {
 				this.startPaint();
 				const [x,y]=this.canvas.offsetToRealLocal(this.pointerX,this.pointerY);
-				drawRect(
-					this.canvas.pixels,
-					x, y,
-					this.thickness,
-					this.canvas.width,this.canvas.height,
-					this.brush.r, this.brush.g, this.brush.b, this.brush.a
-				);
+				this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
 				this.canvas.showCanvas();
 			},
 			frame: () => {
-				const [x,y]=this.savePoint();
-				drawRect(
-					this.canvas.pixels,
-					x, y,
-					this.thickness,
-					this.canvas.width,this.canvas.height,
-					this.brush.r, this.brush.g, this.brush.b, this.brush.a
-				);
+				const [x,y]=this.canvas.offsetToRealLocal(this.pointerX,this.pointerY);
+				this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
 				this.canvas.showCanvas();
 			},
-			end: () => this.addAction()
+			end: () => this.commitCommand()
 		});
 		this.paintWays.set(PAINTMODE_STROKE_CIRCLE, {
 			start: () => {
 				this.startPaint();
 				const [x,y]=this.canvas.offsetToRealLocal(this.pointerX,this.pointerY);
-				drawCircle(
-					this.canvas.pixels,
-					x, y,
-					this.thickness,
-					this.canvas.width,this.canvas.height,
-					this.brush.r, this.brush.g, this.brush.b, this.brush.a
-				);
+				this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
 				this.canvas.showCanvas();
 			},
 			frame: () => {
-				const [x, y] = this.savePoint();
-				drawCircle(
-					this.canvas.pixels,
-					x, y,
-					this.thickness,
-					this.canvas.width,this.canvas.height,
-					this.brush.r, this.brush.g, this.brush.b, this.brush.a
-				);
+				const [x,y]=this.canvas.offsetToRealLocal(this.pointerX,this.pointerY);
+				this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
 				this.canvas.showCanvas();
 			},
-			end: () => this.addAction()
+			end: () => this.commitCommand()
 		});
 		this.paintWays.set(PAINTMODE_FILL_CIRCLE, {
 			start: () => this.startPaint(),
@@ -92,15 +68,14 @@ class Painter {
 		});
 	}
 
-	startPaint() {
-		this.points = [];
-		this.savePoint();
+	commitCommand(){
+		this.timeline.action(this.cmd);
+		console.log(`paint end, dirty rect: ${this.cmd.bounds}`);
+		this.cmd=null;
 	}
 
-	savePoint() {
-		const [nowX, nowY] = this.canvas.offsetToRealLocal(this.pointerX, this.pointerY);
-		this.points.push([nowX, nowY]);
-		return [nowX, nowY];
+	startPaint() {
+		this.cmd=new Command(this.paintMode,this.brush.r,this.brush.g,this.brush.b,this.brush.a,this.thickness);
 	}
 
 	addAction() {
