@@ -28,6 +28,7 @@ class Command {
 			}
 		}
 		this.updateBounds(minX,minY,maxX,maxY);
+		return [minX,minY,maxX,maxY];
 	}
 
 	play(img, w, h) {

@@ -27,13 +27,14 @@ class Painter {
 			start: () => {
 				this.startPaint();
 				const [x,y]=this.canvas.offsetToRealLocal(this.pointerX,this.pointerY);
-				this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
-				this.canvas.showCanvas();
+				const [minX,minY,maxX,maxY]=this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
+				// this.canvas.showCanvas();
+				this.canvas.updateRect(minX,minY,maxX,maxY);
 			},
 			frame: () => {
 				const [x,y]=this.canvas.offsetToRealLocal(this.pointerX,this.pointerY);
-				this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
-				this.canvas.showCanvas();
+				const [minX,minY,maxX,maxY]=this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
+				this.canvas.updateRect(minX,minY,maxX,maxY);
 			},
 			end: () => this.commitCommand()
 		});
