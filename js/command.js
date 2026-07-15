@@ -35,17 +35,13 @@ class Command {
 		switch (this.mode) {
 			case PAINTMODE_STROKE_CIRCLE: {
 				for (const [x, y] of this.points) {
-					// const [minX,minY,maxX,maxY]=
 					drawCircle(img, x, y, this.thickness, w, h, this.r, this.g, this.b, this.a);
-					// this.updateBounds(minX,minX,maxX,maxY);
 				}
 				return;
 			}
 			case PAINTMODE_STROKE_RECT: {
 				for (const [x, y] of this.points) {
-					// const [minX,minY,maxX,maxY]=
 					drawRect(img, x, y, this.thickness, w, h, this.r, this.g, this.b, this.a);
-					// this.updateBounds(minX,minX,maxX,maxY);
 				}
 				return;
 			}

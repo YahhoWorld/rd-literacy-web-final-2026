@@ -52,7 +52,7 @@ class TimeLine {
 		for (let i = this.getActionIdx(this.lastSnaped); i < this.now; ++i) {
 			this.getAction(i).play(img, this.w, this.h);
 		}
-		// console.log(`replayed ${when-this.getActionIdx(time)} commands`);
+		console.log(`replayed ${this.now-this.getActionIdx(this.lastSnaped)} commands`);
 	}
 
 	reload = (canvas) => this.load(canvas.pixels);
@@ -66,6 +66,8 @@ class TimeLine {
 		}
 		const [x0, y0, x1, y1] = this.unionRect(dirtyRects);
 		const sw = x1 - x0, sh = y1 - y0;
+
+		console.log(`snap area: ${x0},${y0},${x1},${y1}`);
 
 		// スナップショットのロード（現在はloadを流用しているが、メモリ・処理効率的にはもとから変更領域分のみ処理するほうが良い）
 		const size = this.snapshots[0].length;

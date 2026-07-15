@@ -90,7 +90,6 @@ class Canvas {
 	}
 
 	showCanvas = () => {
-		console.log("showing canvas...");
 		this.offCtx.fillStyle = this.background;
 		this.offCtx.clearRect(0,0,this.width,this.height);
 		this.offCtx.fillRect(0, 0, this.width, this.height);
@@ -111,20 +110,10 @@ class Canvas {
 			0, 0,
 			this.scale*this.width, this.scale*this.height
 		);
-
-		// const [x, y] = [vwidth / this.width, vheight / this.height];
-		// for (let i = 0; i < this.width; ++i) {
-		// 	for (let j = 0; j < this.height; ++j) {
-		// 		let col = this.getcolor(i, j);
-		// 		this.ctx.fillStyle = `rgba(${col[0]},${col[1]},${col[2]},${col[3]})`;
-		// 		this.ctx.fillRect(x * i, y * j, x * (i + 1), y * (j + 1));
-		// 	}
-		// }
-		console.log("showed");
+		console.log("showed full canvas");
 	}
 
 	paintTest() {
-		console.log("painting test...");
 		for (let y = 0; y < this.height; ++y) {
 			for (let x = 0; x < this.width; ++x) {
 
@@ -135,7 +124,7 @@ class Canvas {
 				this.paint(x, y, r, g, b, 255);
 			}
 		}
-		console.log("painted");
+		console.log("test painted");
 	}
 
 	resizeCanvas(w,h){
