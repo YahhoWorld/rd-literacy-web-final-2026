@@ -169,5 +169,4 @@ class Painter {
 		this.paintWays.get(this.paintMode).frame();
 	}
 
-
 }
