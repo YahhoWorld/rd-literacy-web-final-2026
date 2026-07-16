@@ -52,10 +52,12 @@ img{
 .header-logo {
     display: block;
     width: 170px;
+    
 }
 
 .site-menu ul {
     display: flex;
+    align-items: center;
 }
 
 .site-menu ul li {
@@ -111,7 +113,6 @@ img{
 .sns-links img:hover{
     filter:drop-shadow(0 0 10px #00ffff);
 }
-
 
 .copyright {
     font-size: 14px;

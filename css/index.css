@@ -10,23 +10,24 @@ nav.floating {
     background-image: url(../images/index/bg_main.jpg);
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover; display: flex;
+    background-size: cover; 
+    display: flex;
+    justify-content:center;
+    align-items:center;
     align-items: center;
+    font-family:"DotGothic16",sans-serif;
     
 }
 .first-view-text {
     width: 100%;
     max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 40px;
-    padding-bottom: 80px;
+    text-align:center;
+    padding:0;
     color: #ffffff;
     font-weight: bold;
     text-shadow: 1px 1px 10px #4b2c14;
 }
 .first-view-text h1 {
-    font-family: 'Montserrat', sans-serif;
     font-size: 56px;
     line-height: 72px;
 }
@@ -121,12 +122,120 @@ nav.floating {
     margin-bottom:20px;
 }
 
-.action-game{
-    background-image: url("../images/common/mainBg.png");
-    background-size: cover;
-    background-position: center;
-    padding:120px 0;
-    background-attachment: fixed;
+.paint-menu{
 
-    cursor: url("../images/common/icon-menu.png"), auto;
+    background-image:url("../images/common/mainBg.png");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    position: relative;
+    overflow: hidden;
+
+    padding:120px 0;
+    cursor:url("../images/common/share_ln.png") 0 32, auto;
+}
+
+.paint-menu ul{
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:50px;
+}
+.paint-menu-button{
+
+    position:relative;
+
+    width:420px;
+
+    display:block;
+
+    transition:.2s;
+
+    cursor:url("../images/common/share_x.png") 0 32, auto;
+}
+
+.paint-menu a,
+.paint-menu button{
+    cursor: url("../images/common/share_fb.png") 0 31, auto;
+}
+
+.paint-menu-button img{
+    display:block;
+    width:100%;
+}
+.paint-menu-button span{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    font-family:"DotGothic16",sans-serif;
+    font-size:28px;
+    color:white;
+    text-shadow:
+        2px 2px 5px black;
+    pointer-events:none;
+}
+.paint-menu-button:hover{
+    transform:scale(1.05);
+    filter:brightness(1.2);
+}
+.paint-menu-button:active{
+    transform:scale(.95);
+}
+.ink{
+    position:absolute;
+    width:50px;
+    height:50px;
+    background:url("../images/common/share_fb.png");
+    background-size:contain;
+    background-repeat:no-repeat;
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    animation:ink .7s forwards;
+    z-index:9999;
+}
+.trail{
+    position:absolute;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    opacity:.8;
+    animation:trailFade .5s forwards;
+    z-index:9999;
+}
+
+@keyframes ink{
+    0%{
+        opacity:1;
+        transform:
+            translate(-50%,-50%)
+            scale(.3)
+            rotate(0deg);
+    }
+    70%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+        transform:
+            translate(-50%,-50%)
+            scale(1.2)
+            rotate(35deg);
+    }
+}
+@keyframes trailFade{
+    from{
+        opacity:.8;
+        transform:translate(-50%,-50%) scale(1);
+    }
+
+    to{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.3);
+    }
 }
