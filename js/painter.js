@@ -119,7 +119,9 @@ class Painter {
 		fragment.querySelector("form").addEventListener("change", () => this.getController());
 		fragment.querySelector(".undo-button").addEventListener("click", (e) => { e.preventDefault(); this.undo(); });
 		fragment.querySelector(".redo-button").addEventListener("click", (e) => { e.preventDefault(); this.redo(); });
+		fragment.id=`ctrid-${this.id}`;
 		this.controller = fragment.querySelector(".canvas-controller");
+		changeDraggable(this.controller,this.controller.querySelector(".hover-bar"));
 		cn.doc.appendChild(fragment);
 		this.canvas = cn.canvas;
 
