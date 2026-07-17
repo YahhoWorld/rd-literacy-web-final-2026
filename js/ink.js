@@ -22,10 +22,10 @@ paintMenu.addEventListener("click", (e) => {
     ink.classList.add("ink");
 
     const image = inks[Math.floor(Math.random() * inks.length)];
-
+    const angle = Math.random() * 360;
+    ink.style.setProperty("--angle", `${angle}deg`);
     ink.style.backgroundImage =
-        `url("../images/common/${image}")`;
-
+        `url("../rd-literacy-web-final-2026/images/index/${image}")`;
     const rect = paintMenu.getBoundingClientRect();
 
     ink.style.left = `${e.clientX - rect.left}px`;
