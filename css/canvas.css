@@ -1,12 +1,128 @@
-.canvas{
+p,span{
+	margin: 0;
+	font-size: 16px;
+}
+
+html,body{
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+*{
+	box-sizing: border-box;
+}
+
+.canvas {
 	position: relative;
 }
 
-.canvas-controller{
+button{
+	all:unset;
+	display: inline-block;
+	box-sizing: border-box;
+	font: inherit;
+	color: inherit;
+	background: none;
+	border-radius: 0;
+	-webkit-appearance: none;
+	appearance: none;
+	font-size: inherit;
+	border: 1px solid white;
+	border-radius: 5px;
+	padding: 3px;
+}
+
+input[type="number"] {
+	all: unset;
+	display: inline-block;
+	box-sizing: border-box;
+	font: inherit;
+	color: inherit;
+	background: none;
+	border-radius: 0;
+	-webkit-appearance: none;
+	appearance: none;
+	font-size: inherit;
+}
+
+.canvas-controller {
 	position: absolute;
 	z-index: 10;
-	width: 300px;
+	width: 200px;
 	right: 5px;
-	top:0px;
-	background-color: white;
+	top: 0px;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	border: 1px solid white;
+	padding: 5px;
+}
+
+.canvas-controller .bar{
+	height: 25px;
+	min-width: 40px;
+	display: flex;
+	justify-content: right;
+}
+.canvas-controller .hover-bar{
+	min-width: 40px;
+	flex: 1;
+}
+.canvas-controller .bar-arrow{
+	height: 25px;
+	width: 25px;
+	display: inline;
+	font-size: 15px;
+}
+
+.canvas-controller.hidden form{
+	display: none;
+}
+.canvas-controller.hidden{
+	width: 70px;
+}
+
+#painter{
+	height: 100%;
+}
+
+#make-canvas {
+	border: 1px solid white;
+	height: 100%;
+	width: 100%;
+	padding: 10px;
+}
+
+input[type="number"] {
+	border: none;
+	border-bottom: 1px solid white;
+	background-color: inherit;
+	color: inherit;
+	font-size: 1rem;
+	width: 50px;
+	margin-left: auto;
+}
+
+input[type="number"]:focus {
+	border: none;
+	border-bottom: 1px solid white;
+	background-color: gray;
+}
+
+body {
+	background-color: black;
+	color: white;
+}
+
+    .draggable {
+      position: absolute;
+      user-select: none;
+    }
+
+.hover-bar{
+      cursor: grab;
+}
+
+.hover-bar hr{
+	margin: 5px;
 }
