@@ -1,6 +1,7 @@
 const canvasArea = document.getElementById("canvas");
 
 const canvases = {};
+const canvasIds=[];
 
 let clwidth = window.innerWidth;		// クライアントエリアのサイズ
 let clheight = window.innerHeight;
@@ -48,11 +49,15 @@ const createCanvas = (w, h) => {
 		canvas: cvs,
 		painter: ptr,
 		doc: tar,
-		htmlcanv:c
+		htmlcanv:c,
+		zIndex:canvasIds.length,
+		w:w,
+		h:h,
 	};
 	cvs.paintTest();
 	ptr.set();
 	cvs.showCanvas();
+	canvasIds.push(id);
 
 	console.log(canvases)
 }
