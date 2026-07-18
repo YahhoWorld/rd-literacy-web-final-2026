@@ -114,6 +114,7 @@ class Painter {
 		c.addEventListener("pointermove", this.mousemoveEventListener);
 		c.addEventListener("pointerdown", this.mousedownEventListener);
 		c.addEventListener("pointerup", this.mouseupEventListener);
+		c.addEventListener("mouseleave",this.mouseupEventListener);
 
 		const fragment = document.getElementById("canvas-controller-template").content.cloneNode(true);
 		fragment.querySelector("form").addEventListener("change", () => this.getController());
