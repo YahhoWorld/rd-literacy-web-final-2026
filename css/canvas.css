@@ -1,15 +1,17 @@
-p,span{
+p,
+span {
 	margin: 0;
 	font-size: 16px;
 }
 
-html,body{
+html,
+body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
 }
 
-*{
+* {
 	box-sizing: border-box;
 }
 
@@ -19,8 +21,8 @@ html,body{
 	padding: 5px;
 }
 
-button{
-	all:unset;
+button {
+	all: unset;
 	display: inline-block;
 	box-sizing: border-box;
 	font: inherit;
@@ -36,7 +38,7 @@ button{
 	cursor: pointer;
 }
 
-input[type="number"]{
+input[type="number"] {
 	all: unset;
 	display: inline-block;
 	box-sizing: border-box;
@@ -48,6 +50,7 @@ input[type="number"]{
 	appearance: none;
 	font-size: inherit;
 }
+
 input[type="color"] {
 	background: none;
 	border-radius: 5px;
@@ -72,39 +75,58 @@ input[type="color"] {
 	padding: 5px;
 }
 
-.canvas-controller button.bar-arrow{
+.canvas-controller button.bar-arrow {
 	padding: 0;
 }
 
-.canvas-controller .bar{
+.canvas-controller .bar {
 	height: 25px;
 	min-width: 40px;
 	display: flex;
 	justify-content: right;
 }
-.canvas-controller:not(.hidden) .bar{
+
+.canvas-controller:not(.hidden) .bar {
 	margin-bottom: 5px;
 }
 
-.canvas-controller .hover-bar{
+.canvas-controller .hover-bar {
 	min-width: 40px;
 	flex: 1;
 }
-.canvas-controller .bar-arrow{
+
+.canvas-controller .bar-arrow {
 	height: 25px;
 	width: 25px;
 	display: inline-flex;
 	font-size: 15px;
 }
 
-.canvas-controller.hidden form{
+.canvas-controller.hidden form {
 	display: none;
 }
-.canvas-controller.hidden{
+
+.canvas-controller.hidden {
 	width: 75px;
 }
 
-#painter{
+.canvas-controller button{
+	aspect-ratio: 1;
+}
+.canvas-controller p{
+	font-weight: bold;
+	margin: 5px 0;
+}
+.canvas-controller label{
+	display: flex;
+	justify-content: end;
+	margin: 3px 0;
+}
+.canvas-controller label span{
+	margin-right: auto;
+}
+
+#painter {
 	height: 100%;
 }
 
@@ -114,19 +136,66 @@ input[type="color"] {
 	/* height: 100%; */
 	width: auto;
 	padding: 10px;
-	margin: 10px;
-}
-#make-canvas button{
-	margin: 10px;
-	
+	margin: 10px auto;
+	max-width: 500px;
+	border-radius: 10px;
+	text-align: center;
 }
 
-#make-image{
+#make-canvas label {
+	display: flex;
+	justify-content: end;
+	margin: 10px auto;
+	max-width: 200px;
+}
+
+#make-canvas input[type=number] {
+	width: 100px;
+}
+
+#make-canvas button {
+	padding: 5px;
+	margin: 10px;
+	font-size: 1rem;
+	width: 300px;
+	text-align: center;
+}
+
+#make-canvas button:hover,
+#make-canvas button:focus {
+	box-shadow: 3px 3px cadetblue;
+}
+
+#make-canvas label:hover,
+#make-canvas label:focus {
+	box-shadow: 0 3px cadetblue;
+	border-radius: 2px;
+}
+
+#make-canvas input:focus {
+	background-color: cadetblue;
+	border-radius: 2px;
+}
+
+#setting {
+	display: flex;
 	background-color: gray;
 	border: 1px solid white;
 	width: auto;
 	padding: 10px;
-	margin: 10px;
+	margin: 10px auto;
+	max-width: 600px;
+	border-radius: 10px;
+}
+
+#download-png.banned {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+#download-png:not(.banned):focus,
+#download-png:not(.banned):hover {
+	box-shadow: 3px 3px cadetblue;
 }
 
 input[type="number"] {
@@ -150,15 +219,17 @@ body {
 	color: white;
 }
 
-    .draggable {
-      position: absolute;
-      user-select: none;
-    }
-
-.hover-bar{
-      cursor: grab;
+.draggable {
+	position: absolute;
+	user-select: none;
+	touch-action: none;
 }
 
-.hover-bar hr{
+.hover-bar {
+	cursor: grab;
+}
+
+.hover-bar hr {
 	margin: 5px;
 }
+

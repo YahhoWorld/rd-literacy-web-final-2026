@@ -122,6 +122,8 @@ class Painter {
 		fragment.querySelector("form").addEventListener("change", () => this.getController());
 		fragment.querySelector(".undo-button").addEventListener("click", (e) => { e.preventDefault(); this.undo(); });
 		fragment.querySelector(".redo-button").addEventListener("click", (e) => { e.preventDefault(); this.redo(); });
+		fragment.querySelector(".go-next").addEventListener("click", (e) => { e.preventDefault(); window.scroll(0,window.scrollY+this.canvas.vheight+10); });
+		fragment.querySelector(".go-previous").addEventListener("click", (e) => { e.preventDefault(); window.scroll(0,window.scrollY-this.canvas.vheight-10); });
 		fragment.id=`ctrid-${this.id}`;
 		this.controller = fragment.querySelector(".canvas-controller");
 		changeDraggable(this.controller,this.controller.querySelector(".hover-bar"));

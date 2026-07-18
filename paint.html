@@ -16,51 +16,49 @@
     <div id="make-canvas">
       <div id="wh-input">
         <h4>作成する画像の設定</h1>
-      <label>
-        <span>
-          幅(ピクセル)
-        </span>
-        <input type="number" step="1" min="1" max="4096" value="50" id="width-size-input" placeholder="1~4096">
-      </label><br>
-      <label>
-        <span>
-          高さ(ピクセル)
-        </span>
-        <input type="number" step="1" min="1" max="4096" value="50" id="height-size-input" placeholder="1~4096">
-      </label>
-      <script>
-        // height, width に不正な値が入った場合修正する.
-        const i1 = document.getElementById("width-size-input");
-        i1.addEventListener("change", e => { if (i1.value < 1) i1.value = 1; else if (i1.value > 4096) i1.value = 4096; });
-        const i2 = document.getElementById("height-size-input");
-        i2.addEventListener("change", e => { if (i2.value < 1) i2.value = 1; else if (i2.value > 4096) i2.value = 4096; });
-      </script>
+          <label>
+            <span class="input-title">幅</span>
+            <input type="number" step="1" min="1" max="4096" value="50" id="width-size-input" placeholder="1~4096">
+            <span>px</span>
+          </label>
+          <label>
+            <span class="input-title">高さ</span>
+            <input type="number" step="1" min="1" max="4096" value="50" id="height-size-input" placeholder="1~4096">
+            <span>px</span>
+          </label>
+          <script>
+            // height, width に不正な値が入った場合修正する.
+            const i1 = document.getElementById("width-size-input");
+            i1.addEventListener("change", e => { if (i1.value < 1) i1.value = 1; else if (i1.value > 4096) i1.value = 4096; });
+            const i2 = document.getElementById("height-size-input");
+            i2.addEventListener("change", e => { if (i2.value < 1) i2.value = 1; else if (i2.value > 4096) i2.value = 4096; });
+          </script>
       </div>
-      <button id="create-canvas-t" class="create-canvas-button" onclick="document.getElementById('wh-input').style.display='none';">
+      <button id="create-canvas-t" class="create-canvas-button"
+        onclick="document.getElementById('wh-input').style.display='none';">
         レイヤーを作成 (透過画像)
       </button>
-      <br>
-      <button id="create-canvas-w" class="create-canvas-button" onclick="document.getElementById('wh-input').style.display='none';">
+      <button id="create-canvas-w" class="create-canvas-button"
+        onclick="document.getElementById('wh-input').style.display='none';">
         レイヤーを作成 (白背景)
       </button>
-      <br>
-      <button id="create-canvas-b" class="create-canvas-button" onclick="document.getElementById('wh-input').style.display='none';">
+      <button id="create-canvas-b" class="create-canvas-button"
+        onclick="document.getElementById('wh-input').style.display='none';">
         レイヤーを作成 (黒背景)
       </button>
-      <br>
-      <button id="create-canvas-gb" class="create-canvas-button" onclick="document.getElementById('wh-input').style.display='none';">
+      <button id="create-canvas-gb" class="create-canvas-button"
+        onclick="document.getElementById('wh-input').style.display='none';">
         レイヤーを作成 (グリーンバック)
       </button>
     </div>
-    <div id="make-image">
-      <button id="download-png">PNGでダウンロードする</button>
-    </div>
     <div id="setting">
-
+      <div id="make-image">
+        <button id="download-png" class="banned">PNGでダウンロードする</button>
+      </div>
     </div>
     <!-- アイコンのオリジナル -->
-    <svg  xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.2"
-      stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+      stroke-linejoin="round" style="display: none;">
       <symbol id="svg-opening" viewBox="0 0 24 24">
         <path d="M6 12 L 18 12"></path>
       </symbol>
@@ -76,8 +74,8 @@
             const isHidden=this.closest('.canvas-controller').classList.toggle('hidden');
             this.querySelector('use').setAttribute('href',isHidden? '#svg-closing':'#svg-opening');
           ">
-            <svg  xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5"
-      stroke-linecap="round" stroke-linejoin="round" style="aspect-ratio: 1; min-width: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" style="aspect-ratio: 1; min-width: 20px;">
               <use href="#svg-opening"></use>
             </svg>
           </button>
@@ -100,9 +98,12 @@
           <div>
             <label><span>線の太さ:</span><input type="number" min="1" class="weight" value="1"></label>
           </div>
+          <hr>
           <div>
+            <p>レイヤー順の設定</p>
             <label><span>Z</span><input type="number" class="layer-z"></label>
           </div>
+          <hr>
           <button class="undo-button" title="1つ戻す (Undo)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
@@ -112,13 +113,26 @@
             </svg>
           </button>
           <button class="redo-button" title="やり直す (Redo)">
-            <div>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
-                style="aspect-ratio: 1; min-width: 20px">
-                <path d="M5 3 h7 M12 4 v7" />
-                <path d="M20 12 A8 8 0 1 1 12 4" />
-              </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+              style="aspect-ratio: 1; min-width: 20px">
+              <path d="M5 3 h7 M12 4 v7" />
+              <path d="M20 12 A8 8 0 1 1 12 4" />
+            </svg>
+          </button>
+          <button class="go-next" title="下のキャンバスへスクロール">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+              style="aspect-ratio: 1; min-width: 20px">
+              <path d="M6 6 L 12 18 L 18 6" />
+            </svg>
+          </button>
+          <button class="go-previous" title="上のキャンバスへスクロール">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+              style="aspect-ratio: 1; min-width: 20px">
+              <path d="M6 18 L 12 6 L 18 18" />
+            </svg>
           </button>
         </form>
       </div>
@@ -136,6 +150,7 @@
   <script src="js/image-maker.js"></script>
   <script>
     document.querySelectorAll(".draggable").forEach((e) => changeDraggable(e));
+    canvasMakeEventListeners.push(() => document.getElementById('download-png').classList.remove('banned'));
   </script>
 </body>
 
