@@ -145,6 +145,12 @@ class Painter {
 		c.showCanvas();
 	}
 
+	refreshCanvas(){
+		const c = getCanvas(this.id).canvas;
+		// TODO: コマンドの整理をここに書いた方が良いかも
+		c.showCanvas();
+	}
+
 	mouseupEventListener = (e) => {
 		e.preventDefault();
 		if (!this.isDrawing) return;
