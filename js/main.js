@@ -23,7 +23,7 @@ const getCanvas = (id) => {
 	return canvases[id];
 }
 
-const createCanvas = (w, h) => {
+const createCanvas = (w, h,option) => {
 	if(isFirstTime){
 	width=w;
 	height=h;
@@ -36,7 +36,7 @@ const createCanvas = (w, h) => {
 	const dpr = window.devicePixelRatio || 1;
 	const [cx, cy] = getClientXY();
 	const scale=Math.min(cx/width,cy/height);
-	const [vx,vy]=[scale*width,scale*height];
+	const [vx,vy]=[scale*width-10,scale*height-10];
 	c.style.width = `${vx}px`;
 	c.style.height = `${vy}px`;
 	c.width = vx * dpr;
@@ -45,7 +45,12 @@ const createCanvas = (w, h) => {
 	ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
 	let id = nextId++;
-	let cvs = new Canvas(id, ctx, width, height, vx, vy);
+	let cvs = new Canvas(id, ctx, width, height, vx, vy,
+		option==="w"||option==="t"?0xff:0x0,
+		option==="w"||option==="t"||option==="gb"?0xff:0x0,
+		option==="w"||option==="t"?0xff:0x0,
+		option==="t"?0x0:0xff,
+	);
 	let ptr = new Painter(id);
 	let tar = document.createElement("div");
 	tar.classList.add("canvas");
@@ -61,7 +66,7 @@ const createCanvas = (w, h) => {
 		htmlcanv:c,
 		zIndex:canvasIds.length,
 	};
-	cvs.paintTest();
+	// cvs.paintTest();
 	ptr.set();
 	cvs.showCanvas();
 	canvasIds.push(id);

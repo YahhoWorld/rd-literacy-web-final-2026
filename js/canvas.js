@@ -5,7 +5,7 @@
 class Canvas {
 
 	constructor(
-		id, ctx/*CanvasContext2D*/, width, height, vwidth, vheight
+		id, ctx/*CanvasContext2D*/, width, height, vwidth, vheight,r=0xff,g=0xff,b=0xff,a=0xff
 	) {
 		// コンテキスト
 		this.ctx = ctx;
@@ -19,7 +19,12 @@ class Canvas {
 
 		// 画像
 		this.pixels = new Uint8ClampedArray(width * height * 4);	// r:i, g:i+1, b:i+2, a:i+3
-		this.pixels.fill(0xff);
+		for(let i=0;i<width*height;++i){
+			this.pixels[4*i]=r;
+			this.pixels[4*i+1]=g;
+			this.pixels[4*i+2]=b;
+			this.pixels[4*i+3]=a;
+		}
 		this.imageData=new ImageData(this.pixels,width,height);
 		this.guidePixels = new Uint8ClampedArray(width * height * 4);	// r:i, g:i+1, b:i+2, a:i+3
 		this.guidePixels.fill(0xff);

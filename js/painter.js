@@ -99,6 +99,8 @@ class Painter {
 		this.brush.a = parseInt(this.controller.querySelector(".a").value);
 		const winput = this.controller.querySelector(".weight").value;
 		this.thickness = Number(winput);
+		const layerZ=Number(this.controller.querySelector(".layer-z").value);
+		getCanvas(this.id).z=layerZ;
 		console.log(`read contoller brush: ${this.brush}`);
 	}
 
@@ -148,6 +150,7 @@ class Painter {
 	refreshCanvas(){
 		const c = getCanvas(this.id).canvas;
 		// TODO: コマンドの整理をここに書いた方が良いかも
+		this.timeline.reload(c);
 		c.showCanvas();
 	}
 
