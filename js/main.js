@@ -36,7 +36,7 @@ const createCanvas = (w, h) => {
 	const dpr = window.devicePixelRatio || 1;
 	const [cx, cy] = getClientXY();
 	const scale=Math.min(cx/width,cy/height);
-	const [vx,vy]=[scale*width,scale*height];
+	const [vx,vy]=[scale*width-10,scale*height-10];
 	c.style.width = `${vx}px`;
 	c.style.height = `${vy}px`;
 	c.width = vx * dpr;
@@ -61,7 +61,7 @@ const createCanvas = (w, h) => {
 		htmlcanv:c,
 		zIndex:canvasIds.length,
 	};
-	cvs.paintTest();
+	// cvs.paintTest();
 	ptr.set();
 	cvs.showCanvas();
 	canvasIds.push(id);

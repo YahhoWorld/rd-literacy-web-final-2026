@@ -15,6 +15,8 @@ html,body{
 
 .canvas {
 	position: relative;
+	margin-bottom: 10px;
+	padding: 5px;
 }
 
 button{
@@ -34,7 +36,7 @@ button{
 	cursor: pointer;
 }
 
-input[type="number"] {
+input[type="number"]{
 	all: unset;
 	display: inline-block;
 	box-sizing: border-box;
@@ -45,6 +47,17 @@ input[type="number"] {
 	-webkit-appearance: none;
 	appearance: none;
 	font-size: inherit;
+}
+input[type="color"] {
+	background: none;
+	border-radius: 5px;
+	padding: 0;
+	margin: 0;
+	border: none;
+	inline-size: 50px;
+	block-size: 2em;
+	padding-inline: 0;
+	padding-block: 0;
 }
 
 .canvas-controller {
@@ -96,10 +109,20 @@ input[type="number"] {
 }
 
 #make-canvas {
+	background-color: gray;
 	border: 1px solid white;
-	height: 100%;
-	width: 100%;
+	/* height: 100%; */
+	width: auto;
 	padding: 10px;
+	margin: 10px;
+}
+
+#make-image{
+	background-color: gray;
+	border: 1px solid white;
+	width: auto;
+	padding: 10px;
+	margin: 10px;
 }
 
 input[type="number"] {

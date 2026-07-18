@@ -27,8 +27,11 @@
       </div>
       <button id="create-canvas" onclick="document.getElementById('wh-input').style.display='none';">レイヤーの作成</button>
     </div>
-    <div id="build-image">
-      <button>PNGでダウンロードする</button>
+    <div id="make-image">
+      <button id="download-png">PNGでダウンロードする</button>
+    </div>
+    <div id="setting">
+
     </div>
     <!-- アイコンのオリジナル -->
     <svg  xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.2"
@@ -71,6 +74,9 @@
           </div>
           <div>
             <label><span>線の太さ:</span><input type="number" min="1" class="weight" value="1"></label>
+          </div>
+          <div>
+            <label><span>Z</span><input type="number" class="layer-z"></label>
           </div>
           <button class="undo-button" title="1つ戻す (Undo)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
