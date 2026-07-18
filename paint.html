@@ -25,16 +25,28 @@
       </script>
       <button id="create-canvas">レイヤーの作成</button>
     </div>
+    <!-- アイコンのオリジナル -->
+    <svg  xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.2"
+      stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+      <symbol id="svg-opening" viewBox="0 0 24 24">
+        <path d="M6 12 L 18 12"></path>
+      </symbol>
+      <symbol id="svg-closing" viewBox="0 0 24 24">
+        <path d="M 4 10 L 4 4 L 10 4 M 14 4 L 20 4 L 20 10 M 20 14 L 20 20 L 14 20 M 10 20 L 4 20 L 4 14"></path>
+      </symbol>
+    </svg>
     <!-- コントローラーのてんぷら -->
     <template id="canvas-controller-template">
       <div class="canvas-controller" id="ctr-id-original">
         <div class="bar" title="コントローラーの最小化の切り替え">
           <button class="bar-arrow" onclick="
             const isHidden=this.closest('.canvas-controller').classList.toggle('hidden');
-            if(isHidden)this.textContent='<';
-            else this.textContent='>';
+            this.querySelector('use').setAttribute('href',isHidden? '#svg-closing':'#svg-opening');
           ">
-          &gt;
+            <svg  xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5"
+      stroke-linecap="round" stroke-linejoin="round" style="aspect-ratio: 1; min-width: 20px;">
+              <use href="#svg-opening"></use>
+            </svg>
           </button>
           <div class="hover-bar" title="コントローラーを動かす">
             <hr>
@@ -55,8 +67,23 @@
           <div>
             <label><span>線の太さ:</span><input type="number" min="1" class="weight" value="1"></label>
           </div>
-          <button class="undo-button">← undo</button>
-          <button class="redo-button">redo →</button>
+          <button class="undo-button" title="1つ戻す (Undo)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+              style="aspect-ratio: 1; min-width: 20px">
+              <path d="M12 3 h7 M12 4 v7" />
+              <path d="M4 12 A8 8 0 1 0 12 4" />
+            </svg>
+          </button>
+          <button class="redo-button" title="やり直す (Redo)">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+                style="aspect-ratio: 1; min-width: 20px">
+                <path d="M5 3 h7 M12 4 v7" />
+                <path d="M20 12 A8 8 0 1 1 12 4" />
+              </svg>
+          </button>
         </form>
       </div>
     </template>
