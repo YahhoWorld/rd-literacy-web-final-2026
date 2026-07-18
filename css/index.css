@@ -40,51 +40,6 @@ nav.floating {
     margin-top: 48px;
 }
 
-.to-paint{
-	max-width: 100%;
-    height: 300px;
-    background-image: url(../images/index/to_paintBg.png);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover; display: flex;
-    align-items: center;
-	justify-content: center;
-}
-.to-paint-logo{
-    position:relative;
-	display: block;
-    width: 650px;
-	transition: transform 0.1s, filter 0.1s;
-}
-.to-paint-logo img{
-    display:block;
-    width:100%;
-}
-.to-paint-logo span{
-    position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    font-family:"DotGothic16",sans-serif;
-    font-size:45px;
-    color:white;
-    text-shadow:
-        2px 2px 5px black;
-    pointer-events:none;
-}
-/* カーソルで触れたときのアクション */
-.to-paint-logo:hover {
-    filter: brightness(70%);
-}
-/* クリック時のアクション */
-.to-paint-logo:active {
-    transform: scale(0.95);
-    filter: brightness(70%);
-}
-.to-paint-button{
-	display: none;
-}
-
 .explane{
     background-image: url("../images/common/mainBg.png");
     background-size: cover;
@@ -262,4 +217,58 @@ nav.floating {
         opacity:0;
         transform:translate(-50%,-50%) scale(.3);
     }
+}
+@media (max-width:800px){
+
+    .first-view{
+        height:450px;
+    }
+
+    .first-view-text h1{
+        font-size:40px;
+        line-height:60px;
+    }
+
+    .first-view-text p{
+        font-size:20px;
+        margin-top:20px;
+    }
+
+    .explane{
+        padding:60px 0;
+    }
+
+    .explane-inner{
+        width:95%;
+    }
+
+    .news-tag{
+        position:static;
+        writing-mode:horizontal-tb;
+        display:inline-block;
+        margin-bottom:15px;
+    }
+
+    .news-box{
+        padding:20px;
+        border-width:5px;
+        box-shadow:-5px 5px 0 #00ff95;
+    }
+
+    .paint-menu{
+        padding:60px 0;
+    }
+
+    .paint-menu ul{
+        gap:25px;
+    }
+
+    .paint-menu-button{
+        width:260px;
+    }
+
+    .paint-menu-button span{
+        font-size:18px;
+    }
+
 }
