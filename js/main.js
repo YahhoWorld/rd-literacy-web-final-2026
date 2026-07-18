@@ -3,6 +3,8 @@ const canvasArea = document.getElementById("canvas");
 const canvases = {};
 const canvasIds=[];
 
+const canvasMakeEventListeners=[];
+
 let clwidth = window.innerWidth;		// クライアントエリアのサイズ
 let clheight = window.innerHeight;
 
@@ -71,7 +73,9 @@ const createCanvas = (w, h,option) => {
 	cvs.showCanvas();
 	canvasIds.push(id);
 
-	console.log(canvases)
+	console.log(canvases);
+
+	for(f of canvasMakeEventListeners)f();
 }
 
 const debugundo=()=>{
