@@ -110,6 +110,22 @@ input[type="color"] {
 	width: 75px;
 }
 
+.canvas-controller button{
+	aspect-ratio: 1;
+}
+.canvas-controller p{
+	font-weight: bold;
+	margin: 5px 0;
+}
+.canvas-controller label{
+	display: flex;
+	justify-content: end;
+	margin: 3px 0;
+}
+.canvas-controller label span{
+	margin-right: auto;
+}
+
 #painter {
 	height: 100%;
 }
@@ -131,6 +147,10 @@ input[type="color"] {
 	justify-content: end;
 	margin: 10px auto;
 	max-width: 200px;
+}
+
+#make-canvas input[type=number] {
+	width: 100px;
 }
 
 #make-canvas button {
@@ -170,9 +190,11 @@ input[type="color"] {
 
 #download-png.banned {
 	opacity: 0.5;
-	cursor:not-allowed;
+	cursor: not-allowed;
 }
-#download-png:not(.banned):focus,#download-png:not(.banned):hover {
+
+#download-png:not(.banned):focus,
+#download-png:not(.banned):hover {
 	box-shadow: 3px 3px cadetblue;
 }
 
@@ -200,6 +222,7 @@ body {
 .draggable {
 	position: absolute;
 	user-select: none;
+	touch-action: none;
 }
 
 .hover-bar {
@@ -209,3 +232,4 @@ body {
 .hover-bar hr {
 	margin: 5px;
 }
+
