@@ -6,6 +6,11 @@ const canvasIds=[];
 let clwidth = window.innerWidth;		// クライアントエリアのサイズ
 let clheight = window.innerHeight;
 
+let width=null;
+let height=null;
+
+let isFirstTime=true;
+
 const getClientXY = () => [
 	window.innerWidth,
 	window.innerHeight
@@ -19,6 +24,10 @@ const getCanvas = (id) => {
 }
 
 const createCanvas = (w, h) => {
+	if(isFirstTime){
+	width=w;
+	height=h;
+	}
 	console.log("create canvas");
 	const c = document.createElement("canvas");
 	c.id = `canv${canvasCount++}`;
@@ -26,8 +35,8 @@ const createCanvas = (w, h) => {
 	const ctx = c.getContext("2d");
 	const dpr = window.devicePixelRatio || 1;
 	const [cx, cy] = getClientXY();
-	const scale=Math.min(cx/w,cy/h);
-	const [vx,vy]=[scale*w,scale*h];
+	const scale=Math.min(cx/width,cy/height);
+	const [vx,vy]=[scale*width,scale*height];
 	c.style.width = `${vx}px`;
 	c.style.height = `${vy}px`;
 	c.width = vx * dpr;
@@ -36,7 +45,7 @@ const createCanvas = (w, h) => {
 	ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
 	let id = nextId++;
-	let cvs = new Canvas(id, ctx, w, h, vx, vy);
+	let cvs = new Canvas(id, ctx, width, height, vx, vy);
 	let ptr = new Painter(id);
 	let tar = document.createElement("div");
 	tar.classList.add("canvas");
@@ -51,8 +60,6 @@ const createCanvas = (w, h) => {
 		doc: tar,
 		htmlcanv:c,
 		zIndex:canvasIds.length,
-		w:w,
-		h:h,
 	};
 	cvs.paintTest();
 	ptr.set();

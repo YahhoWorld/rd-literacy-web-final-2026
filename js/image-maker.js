@@ -9,8 +9,8 @@ const makePng = () => {
 	});
 
 	const out = document.createElement("canvas");
-	out.width = sourceImgs[0].w;
-	out.height = sourceImgs[0].h;
+	out.width = width;
+	out.height = height;
 	const ctx = out.getContext("2d");
 	sourceImgs.forEach((c) => {
 		ctx.drawImage(c.htmlcanv, 0, 0);
