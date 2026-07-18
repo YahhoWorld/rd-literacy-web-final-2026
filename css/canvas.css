@@ -31,6 +31,7 @@ button{
 	border: 1px solid white;
 	border-radius: 5px;
 	padding: 3px;
+	cursor: pointer;
 }
 
 input[type="number"] {
@@ -58,12 +59,20 @@ input[type="number"] {
 	padding: 5px;
 }
 
+.canvas-controller button.bar-arrow{
+	padding: 0;
+}
+
 .canvas-controller .bar{
 	height: 25px;
 	min-width: 40px;
 	display: flex;
 	justify-content: right;
 }
+.canvas-controller:not(.hidden) .bar{
+	margin-bottom: 5px;
+}
+
 .canvas-controller .hover-bar{
 	min-width: 40px;
 	flex: 1;
@@ -71,7 +80,7 @@ input[type="number"] {
 .canvas-controller .bar-arrow{
 	height: 25px;
 	width: 25px;
-	display: inline;
+	display: inline-flex;
 	font-size: 15px;
 }
 
@@ -79,7 +88,7 @@ input[type="number"] {
 	display: none;
 }
 .canvas-controller.hidden{
-	width: 70px;
+	width: 75px;
 }
 
 #painter{
