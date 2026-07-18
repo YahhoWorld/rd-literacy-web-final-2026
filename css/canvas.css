@@ -116,6 +116,10 @@ input[type="color"] {
 	padding: 10px;
 	margin: 10px;
 }
+#make-canvas button{
+	margin: 10px;
+	
+}
 
 #make-image{
 	background-color: gray;
