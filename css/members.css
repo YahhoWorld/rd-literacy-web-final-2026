@@ -1,31 +1,7 @@
-.members {
-    background-image: url("../images/common/mainBg.png");
-    background-size: cover;
-    background-position: center;
-    padding:120px 0;
-    background-attachment: fixed;
-    padding-top: 45px;
-    padding-bottom: 55px;
-    font-family:"DotGothic16",sans-serif;
-}
-.news-box h1 {
-    font-size: 40px;
-    font-weight: bold;
-    text-align: center;
-}
-.news-box h1::after {
-    content: '';
-    display: block;
-    width: 50px;
-    height: 10px;
-    background-color: #ffffff;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-
-}
 .members-list {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: center;
     gap: 75px;
     padding: 40px 60px 10px;
@@ -33,49 +9,25 @@
 
 .members-list li {
     width: 260px;
-    flex-shrink: 0;
-    margin-left: 0;
+    flex: 0 0 260px; 
 }
-@media (max-width:800px){
 
-    .members{
-        padding:50px 0;
+@media (max-width:800px) {
+    .members-list {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        padding: 30px 0;
     }
 
-    .members-inner{
-        width:95%;
+    .members-list li {
+        width: 90%;
+        max-width: 260px;
+        text-align: center;
     }
 
-    .news-box{
-        padding:20px;
-        border-width:5px;
-        box-shadow:-5px 5px 0 #00ff95;
-    }
-
-    .news-box h1{
-        font-size:28px;
-    }
-
-    .news-box h1::after{
-        width:35px;
-        height:5px;
-    }
-
-    .members-list{
-        flex-direction:column;
-        align-items:center;
-        gap:40px;
-        padding:30px 0;
-    }
-
-    .members-list li{
-        width:90%;
-        max-width:260px;
-        text-align:center;
-    }
-
-    .members-list img{
-        width:180px;
+    .members-list img {
+        width: 180px;
     }
 
 }

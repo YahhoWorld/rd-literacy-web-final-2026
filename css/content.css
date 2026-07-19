@@ -1,0 +1,52 @@
+.content {
+    background-image: url("../images/common/mainBg.png");
+    background-size: cover;
+    background-position: center;
+    padding:120px 0;
+    background-attachment: fixed;
+    padding-top: 45px;
+    padding-bottom: 55px;
+    font-family:"DotGothic16",sans-serif;
+}
+.news-box h1 {
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+}
+.news-box h1::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 10px;
+    background-color: #ffffff;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+@media (max-width:800px){
+
+    .content{
+        padding:50px 0;
+    }
+
+    .content-inner{
+        width:95%;
+    }
+
+    .news-box{
+        padding:20px;
+        border-width:5px;
+        box-shadow:-5px 5px 0 #00ff95;
+    }
+
+    .news-box h1{
+        font-size:28px;
+    }
+
+    .news-box h1::after{
+        width:35px;
+        height:5px;
+    }
+}
