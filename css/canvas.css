@@ -126,9 +126,9 @@ input[type="color"] {
 	margin-right: auto;
 }
 
-#painter {
+/* #painter {
 	height: 100%;
-}
+} */
 
 #make-canvas {
 	background-color: gray;
@@ -233,7 +233,25 @@ body {
 	margin: 5px;
 }
 
-@media (max-width: 1020px) {
+
+#scroll-bar{
+	display: none;
+}
+
+@media (max-width: 800px) {
+	#scroll-bar{
+		display: block;
+		position: fixed;
+		left: 0;
+		width: 20px;
+		height: 20px;
+		background-color: black;
+		opacity: 0.5;
+		border: 2px solid white;
+		border-radius: 0 10px 10px 0;
+		z-index: 2000;
+		touch-action: none;
+
     .header-inner{
         height:100px;
         padding:0 15px;
