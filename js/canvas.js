@@ -116,7 +116,10 @@ class Canvas {
 			this.width, this.height,
 			0, 0,
 			this.scale * this.width, this.scale * this.height
+			// this.vwidth,this.vheight
 		);
+				console.log(`${this.vwidth}, ${this.vheight},${this.scale}`)
+
 		console.log("showed full canvas");
 	}
 
@@ -162,10 +165,23 @@ class Canvas {
 		console.log("test painted");
 	}
 
-	resizeCanvas(w, h) {
-		this.vwidth = w;
-		this.vheight = h;
+	resizeCanvas=(w, h)=> {
+			const scale=Math.min(w/this.width,h/this.height);
+	const [vx,vy]=[scale*this.width-10,scale*this.height-10];
+	const c=getCanvas(this.id).htmlcanv;
+	c.style.width = `${vx}px`;
+	c.style.height = `${vy}px`;
+	c.width = vx * dpr;
+	c.height = vy * dpr;
+	c.style.touchAction="none";
+	this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+	this.vwidth=vx;
+	this.vheight=vy;
+			this.scale = Math.min(this.vwidth / this.width, this.vheight / this.height);
 
-		this.scale = Math.min(w / this.width, h / this.height);
+		
+		console.log(`${this.vwidth}, ${this.vheight}`)
+
+		this.showCanvas();
 	}
 }
