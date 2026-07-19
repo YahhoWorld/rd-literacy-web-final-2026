@@ -8,6 +8,10 @@
   <meta name="viewport" content="width=device-width">
   <link href="css/common.css" rel="stylesheet">
   <link href="css/canvas.css" rel="stylesheet">
+  <!-- ドットのフォント -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -46,6 +50,7 @@
       </div>
     </div>
   </header>
+  <div class="menu-overlay"></div>
   <div id="painter">
     <div id="canvas"></div>
     <div id="make-canvas">
@@ -233,6 +238,9 @@
     canvasMakeEventListeners.push(positionScrollBar);
 
   </script>
+
+  <script src="js/toggle-menu.js"></script>
+    <script src="js/fadein.js"></script>
 </body>
 
 </html>

@@ -1,22 +1,29 @@
 window.addEventListener('load', function () {
-    var $button = document.querySelector('.toggle-menu-button');
-    var $menu = document.querySelector('.header-site-menu');
+    const button = document.querySelector('.toggle-menu-button');
+    const menu = document.querySelector('.header-site-menu');
+    const overlay = document.querySelector('.menu-overlay');
 
-    // ボタンとメニューが存在するときだけ実行
-    if ($button && $menu) {
-        $button.addEventListener('click', function () {
-            if ($menu.classList.contains('is-show')) {
-                $menu.classList.remove('is-show');
+    if (button && menu && overlay) {
+
+        function closeMenu() {
+            menu.classList.remove('is-show');
+            overlay.classList.remove('is-show');
+        }
+
+        function openMenu() {
+            menu.classList.add('is-show');
+            overlay.classList.add('is-show');
+        }
+
+        button.addEventListener('click', function () {
+            if (menu.classList.contains('is-show')) {
+                closeMenu();
             } else {
-                $menu.classList.add('is-show');
+                openMenu();
             }
         });
+
+        // 背景をクリックしたら閉じる
+        overlay.addEventListener('click', closeMenu);
     }
-});
-$(function () {
-    $(window).scroll(function () {
-        $("nav.floating").stop().animate(
-            { "top": $(window).scrollTop() + 100 },
-            500);
-    });
 });
