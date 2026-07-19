@@ -42,13 +42,13 @@ class Painter {
 			start: () => {
 				this.startPaint();
 				const [x,y]=this.canvas.offsetToRealLocal(this.pointerX,this.pointerY);
-				this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
-				this.canvas.showCanvas();
+				const [minX,minY,maxX,maxY]=this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
+				this.canvas.updateRect(minX,minY,maxX,maxY);
 			},
 			frame: () => {
 				const [x,y]=this.canvas.offsetToRealLocal(this.pointerX,this.pointerY);
-				this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
-				this.canvas.showCanvas();
+				const [minX,minY,maxX,maxY]=this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
+				this.canvas.updateRect(minX,minY,maxX,maxY);
 			},
 			end: () => this.commitCommand()
 		});
@@ -99,6 +99,8 @@ class Painter {
 		this.brush.a = parseInt(this.controller.querySelector(".a").value);
 		const winput = this.controller.querySelector(".weight").value;
 		this.thickness = Number(winput);
+		this.paintMode=Number(this.controller.querySelector(`input[name='shape-${this.id}']:checked`).value);
+		console.log(this.paintMode)
 		const layerZ=Number(this.controller.querySelector(".layer-z").value);
 		getCanvas(this.id).z=layerZ;
 		console.log(`read contoller brush: ${this.brush}`);
@@ -122,10 +124,14 @@ class Painter {
 		fragment.querySelector("form").addEventListener("change", () => this.getController());
 		fragment.querySelector(".undo-button").addEventListener("click", (e) => { e.preventDefault(); this.undo(); });
 		fragment.querySelector(".redo-button").addEventListener("click", (e) => { e.preventDefault(); this.redo(); });
-		fragment.querySelector(".go-next").addEventListener("click", (e) => { e.preventDefault(); window.scroll(0,window.scrollY+this.canvas.vheight+10); });
-		fragment.querySelector(".go-previous").addEventListener("click", (e) => { e.preventDefault(); window.scroll(0,window.scrollY-this.canvas.vheight-10); });
+		fragment.querySelector(".go-next").addEventListener("click", (e) => { e.preventDefault(); window.scroll(0,window.scrollY+this.canvas.vheight+5); });
+		fragment.querySelector(".go-previous").addEventListener("click", (e) => { e.preventDefault(); window.scroll(0,window.scrollY-this.canvas.vheight-5); });
 		fragment.id=`ctrid-${this.id}`;
+		fragment.querySelectorAll("input[name='shape']").forEach(element => {
+			element.name=`shape-${this.id}`;
+		});
 		this.controller = fragment.querySelector(".canvas-controller");
+		this.controller.querySelector(".layer-z").value=getCanvas(this.id).zIndex;
 		changeDraggable(this.controller,this.controller.querySelector(".hover-bar"));
 		cn.doc.appendChild(fragment);
 		this.canvas = cn.canvas;

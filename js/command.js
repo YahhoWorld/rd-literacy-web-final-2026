@@ -19,6 +19,7 @@ class Command {
 		const [x,y]=point;
 		switch(this.mode){
 			case PAINTMODE_STROKE_CIRCLE:{
+				console.log("c");
 				[minX,minY,maxX,maxY]=drawCircle(img, x, y, this.thickness, w, h, this.r, this.g, this.b, this.a);
 				break;
 			}
