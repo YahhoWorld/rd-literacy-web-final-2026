@@ -228,6 +228,8 @@
         0,
         Math.min(maxBarTop, e.clientY - bar.offsetHeight / 2)
       );
+      if(e.clientX<document.documentElement.scrollWidth/2)bar.classList.remove("reversed");
+      else bar.classList.add("reversed");
       const scrollTop = barTop / maxBarTop * maxScroll;
       window.scrollTo(0, scrollTop);
     });
