@@ -261,6 +261,9 @@ body {
 		right: 0;
 		left: auto;
 	}
+}
+
+@media (max-width:1020px) {
 
 	.header-inner {
 		height: 100px;
