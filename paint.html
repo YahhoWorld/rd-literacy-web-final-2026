@@ -11,6 +11,7 @@
 </head>
 
 <body>
+  <div id="scroll-bar"></div>
   <header class="header">
     <div class="header-inner">
       <a class="header-logo" href="index.html">
@@ -198,6 +199,39 @@
   <script>
     document.querySelectorAll(".draggable").forEach((e) => changeDraggable(e));
     canvasMakeEventListeners.push(() => document.getElementById('download-png').classList.remove('banned'));
+
+    const bar = document.getElementById("scroll-bar");
+
+    let dragging = false;
+    bar.addEventListener("pointerdown", (e) => {
+      dragging = true;
+      // bar.setPointerCapture(e.pointerId);
+    });
+    bar.addEventListener("pointerup", () => {
+      dragging = false;
+    });
+    bar.addEventListener("pointerleave", () => {
+      dragging = false;
+    });
+    bar.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const maxBarTop = window.innerHeight - bar.offsetHeight;
+      const maxScroll =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const barTop = Math.max(
+        0,
+        Math.min(maxBarTop, e.clientY - bar.offsetHeight / 2)
+      );
+      const scrollTop = barTop / maxBarTop * maxScroll;
+      window.scrollTo(0, scrollTop);
+    });
+    const positionScrollBar = () => {
+      bar.style.top = `${window.scrollY * (window.innerHeight - bar.offsetHeight) / (document.documentElement.scrollHeight - document.documentElement.clientHeight)}px`;
+    }
+    window.addEventListener("scroll", positionScrollBar);
+    canvasMakeEventListeners.push(positionScrollBar);
+
   </script>
 </body>
 
