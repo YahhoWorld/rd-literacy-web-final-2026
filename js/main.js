@@ -25,6 +25,8 @@ const getCanvas = (id) => {
 	return canvases[id];
 }
 
+const dpr = window.devicePixelRatio || 1;
+
 const createCanvas = (w, h,option) => {
 	if(isFirstTime){
 	width=w;
@@ -35,7 +37,6 @@ const createCanvas = (w, h,option) => {
 	c.id = `canv${canvasCount++}`;
 
 	const ctx = c.getContext("2d");
-	const dpr = window.devicePixelRatio || 1;
 	const [cx, cy] = getClientXY();
 	const scale=Math.min(cx/width,cy/height);
 	const [vx,vy]=[scale*width-10,scale*height-10];

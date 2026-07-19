@@ -126,6 +126,12 @@ class Painter {
 		fragment.querySelector(".redo-button").addEventListener("click", (e) => { e.preventDefault(); this.redo(); });
 		fragment.querySelector(".go-next").addEventListener("click", (e) => { e.preventDefault(); window.scroll(0,window.scrollY+this.canvas.vheight+5); });
 		fragment.querySelector(".go-previous").addEventListener("click", (e) => { e.preventDefault(); window.scroll(0,window.scrollY-this.canvas.vheight-5); });
+		fragment.querySelector(".justify-content").addEventListener("click", (e) => {
+			e.preventDefault();
+			const [x,y]=getClientXY();
+			getCanvas(this.id).canvas.resizeCanvas(x,y);
+			getCanvas(this.id).doc.scrollIntoView();
+		});
 		fragment.id=`ctrid-${this.id}`;
 		fragment.querySelectorAll("input[name='shape']").forEach(element => {
 			element.name=`shape-${this.id}`;
