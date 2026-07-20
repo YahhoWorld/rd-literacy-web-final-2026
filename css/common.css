@@ -98,6 +98,7 @@ img{
     text-shadow: 2px 2px 5px black;
 
     pointer-events: none;
+    white-space: nowrap;
 }
 .header-site-menu {
     position: absolute;
