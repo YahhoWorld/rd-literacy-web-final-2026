@@ -33,6 +33,7 @@ class Painter {
 			},
 			frame: () => {
 				const [x, y] = this.canvas.offsetToRealLocal(this.pointerX, this.pointerY);
+				if (x === -1 || y === -1) return
 				const [lastX, lastY] = this.cmd.points[this.cmd.points.length - 1];
 				const diff = Math.sqrt((lastX - x) * (lastX - x) + (lastY - y) * (lastY - y));
 				for (let i = 1; i < diff; i += 1) {
@@ -57,6 +58,7 @@ class Painter {
 			},
 			frame: () => {
 				const [x, y] = this.canvas.offsetToRealLocal(this.pointerX, this.pointerY);
+				if (x === -1 || y === -1) return
 				const [lastX, lastY] = this.cmd.points[this.cmd.points.length - 1];
 				const diff = Math.sqrt((lastX - x) * (lastX - x) + (lastY - y) * (lastY - y));
 				for (let i = 1; i < diff; i += 1) {
@@ -72,6 +74,7 @@ class Painter {
 			},
 			end: () => this.commitCommand()
 		});
+		// 以下未実装
 		this.paintWays.set(PAINTMODE_FILL_CIRCLE, {
 			start: () => this.startPaint(),
 			frame: () => null,
