@@ -185,19 +185,7 @@ nav.floating {
     animation:trailFade .5s forwards;
     z-index:9999;
 }
-.explane li{
-    position: relative;
-}
-.explane li::before{
-    content: " ";
-    position: absolute;
-    background-color: white;
-    border-radius: 0 4px 4px 0;
-    left:-20px;
-    top:1rem;
-    width: 12px;
-    height: 8px;
-}
+
 
 @keyframes ink{
     0%{
@@ -232,6 +220,9 @@ nav.floating {
     }
 }
 @media (max-width:1020px){
+    .content{
+        padding:0 0;
+    }
 
 	.header-inner {
 		height: 100px;

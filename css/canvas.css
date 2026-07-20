@@ -275,6 +275,9 @@ body {
 }
 
 @media (max-width:1020px) {
+	.content{
+        padding:0 0;
+    }
 
 	.header-inner {
 		height: 100px;

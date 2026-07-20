@@ -1,0 +1,13 @@
+.howToUse-list li{
+    position: relative;
+}
+.howToUse-list li::before{
+    content: " ";
+    position: absolute;
+    background-color: white;
+    border-radius: 0 4px 4px 0;
+    left:-20px;
+    top:1rem;
+    width: 12px;
+    height: 8px;
+}
