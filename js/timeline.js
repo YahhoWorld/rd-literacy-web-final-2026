@@ -1,7 +1,7 @@
 class TimeLine {
 	constructor(canvas) {
-		this.saveActionLimit = 10;	// test undoは10回まで
-		this.snapshotInterval = 5;	// test 5操作おきにスナップショット
+		this.saveActionLimit = 50;	// test undoは10回まで
+		this.snapshotInterval = 10;	// test 5操作おきにスナップショット
 
 		this.actions = [];	// コマンド列
 		this.now = 0;			// 今のコマンドが何番目か
@@ -30,9 +30,14 @@ class TimeLine {
 		return this.actions[time - this.removedActions];
 	}
 
-	load(img) {
+	load(img,time=this.now) {
 		console.log(`load img`);
+		let loadedSnapShotTime=0;
 		for (let i = 0; i < this.snapshots.length; ++i) {
+			if(this.snapshotTimes[i]<=time){
+				loadedSnapShotTime=this.snapshotTimes[i];
+			}
+			else break;
 			const [x0, y0, x1, y1] = this.snapshotRects[i];
 			const sw = x1 - x0;
 			const sh = y1 - y0;
@@ -49,8 +54,8 @@ class TimeLine {
 			}
 		}
 		// コマンドの実行
-		for (let i = this.getActionIdx(this.lastSnaped); i < this.now; ++i) {
-			this.getAction(i).play(img, this.w, this.h);
+		for (let i = this.getActionIdx(loadedSnapShotTime); i < this.getActionIdx(time); ++i) {
+			this.actions[i].play(img, this.w, this.h);
 		}
 		console.log(`replayed ${this.now-this.getActionIdx(this.lastSnaped)} commands`);
 	}
@@ -61,8 +66,8 @@ class TimeLine {
 		console.log(`snap ${this.now} using ${this.lastSnaped}`);
 		// 変更領域確定
 		const dirtyRects = [];
-		for (let i = this.getActionIdx(this.lastSnaped); i < this.now; ++i) {
-			dirtyRects.push(this.getAction(i).bounds);
+		for (let i = this.getActionIdx(this.lastSnaped); i < this.getActionIdx(this.now); ++i) {
+			dirtyRects.push(this.actions[i].bounds);
 		}
 		const [x0, y0, x1, y1] = this.unionRect(dirtyRects);
 		const sw = x1 - x0, sh = y1 - y0;
@@ -104,13 +109,25 @@ class TimeLine {
 		}
 		if (this.actions.length > this.saveActionLimit) {
 			// スナップショットを進めて履歴削除
+			const newOriginSnap=new Uint8ClampedArray(this.w*this.h*4);
+			this.load(newOriginSnap,this.snapshotTimes[0]+1);
+			if(this.snapshotTimes[0]+1===this.snapshotTimes[1]){
+				// スナップショットの削除
+				this.snapshots.splice(1,1);
+				this.snapshotRects.splice(1,1);
+				this.snapshotTimes.splice(1,1);
+			}
+			this.snapshots[0]=newOriginSnap;
+			this.snapshotTimes[0]=this.snapshotTimes[0]+1;
 
+			this.actions.shift();
+			this.removedActions++;
 		}
 	}
 
 	undo() {
 		console.log("undo");
-		if (this.now == 0) return;
+		if (this.now <= this.removedActions) return;
 		this.now--;
 		if (this.lastSnaped > this.now) {
 			console.log("pop snapshot");

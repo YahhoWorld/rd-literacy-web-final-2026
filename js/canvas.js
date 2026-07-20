@@ -5,7 +5,7 @@
 class Canvas {
 
 	constructor(
-		id, ctx/*CanvasContext2D*/, width, height, vwidth, vheight,r=0xff,g=0xff,b=0xff,a=0xff
+		id, ctx/*CanvasContext2D*/, width, height, r = 0xff, g = 0xff, b = 0xff, a = 0xff
 	) {
 		// コンテキスト
 		this.ctx = ctx;
@@ -13,19 +13,21 @@ class Canvas {
 		// サイズ
 		this.width = width;	// 描画画像自体の内部サイズ
 		this.height = height;
-		this.vwidth = vwidth;		// 実際のcanvasのサイズ
-		this.vheight = vheight;
-		this.scale = Math.min(vwidth / width, vheight / height);
+		this.vwidth = 0;	// 実際のcanvasのサイズ
+		this.vheight = 0;
+		// const [vx,vy]=getClientXY();
+		// this.resizeCanvas(vx,vy);
+		// this.scale = Math.floor(Math.min(vwidth / width, vheight / height));
 
 		// 画像
 		this.pixels = new Uint8ClampedArray(width * height * 4);	// r:i, g:i+1, b:i+2, a:i+3
-		for(let i=0;i<width*height;++i){
-			this.pixels[4*i]=r;
-			this.pixels[4*i+1]=g;
-			this.pixels[4*i+2]=b;
-			this.pixels[4*i+3]=a;
+		for (let i = 0; i < width * height; ++i) {
+			this.pixels[4 * i] = r;
+			this.pixels[4 * i + 1] = g;
+			this.pixels[4 * i + 2] = b;
+			this.pixels[4 * i + 3] = a;
 		}
-		this.imageData=new ImageData(this.pixels,width,height);
+		this.imageData = new ImageData(this.pixels, width, height);
 		this.guidePixels = new Uint8ClampedArray(width * height * 4);	// r:i, g:i+1, b:i+2, a:i+3
 		this.guidePixels.fill(0xff);
 
@@ -118,7 +120,7 @@ class Canvas {
 			this.scale * this.width, this.scale * this.height
 			// this.vwidth,this.vheight
 		);
-				console.log(`${this.vwidth}, ${this.vheight},${this.scale}`)
+		console.log(`${this.vwidth}, ${this.vheight},${this.scale}`)
 
 		console.log("showed full canvas");
 	}
@@ -137,17 +139,22 @@ class Canvas {
 			h
 		);
 
+		const [iminX, iminY, imaxX, imaxY] = [
+			Math.floor(minX * this.scale),
+			Math.floor(minY * this.scale),
+			Math.ceil(maxX * this.scale),
+			Math.ceil(maxY * this.scale),
+		]
+		this.ctx.imageSmoothingEnabled = false;
+
 		this.ctx.drawImage(
 			this.offCanvas,
 			minX,
 			minY,
 			w,
 			h,
-
-			minX * this.scale,
-			minY * this.scale,
-			w * this.scale,
-			h * this.scale
+			minX * this.scale, minY * this.scale, w * this.scale, h * this.scale
+			// iminX,iminY,imaxX-iminX+this.scale,imaxY-iminY+this.scale
 		);
 	}
 
@@ -165,21 +172,21 @@ class Canvas {
 		console.log("test painted");
 	}
 
-	resizeCanvas=(w, h)=> {
-			const scale=Math.min(w/this.width,h/this.height);
-	const [vx,vy]=[scale*this.width-10,scale*this.height-10];
-	const c=getCanvas(this.id).htmlcanv;
-	c.style.width = `${vx}px`;
-	c.style.height = `${vy}px`;
-	c.width = vx * dpr;
-	c.height = vy * dpr;
-	c.style.touchAction="none";
-	this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-	this.vwidth=vx;
-	this.vheight=vy;
-			this.scale = Math.min(this.vwidth / this.width, this.vheight / this.height);
+	resizeCanvas = (w, h) => {
+		const scale = Math.min(w / this.width, h / this.height);
+		const [vx, vy] = [(scale * this.width)-10 , (scale * this.height)-10 ];
+		const c = getCanvas(this.id).htmlcanv;
+		c.style.width = `${vx}px`;
+		c.style.height = `${vy}px`;
+		c.width = vx * dpr;
+		c.height = vy * dpr;
+		c.style.touchAction = "none";
+		this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+		this.scale = Math.floor(Math.min(vx / this.width, vy / this.height));
+		this.vwidth = this.width*this.scale;
+		this.vheight = this.height*scale;
 
-		
+
 		console.log(`${this.vwidth}, ${this.vheight}`)
 
 		this.showCanvas();
