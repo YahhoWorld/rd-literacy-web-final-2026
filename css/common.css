@@ -67,6 +67,7 @@ img{
         2px 2px 5px black;
     pointer-events:none;
 }
+
 .toggle-menu-button{
     display:none;
 }
@@ -99,6 +100,14 @@ img{
 
     pointer-events: none;
     white-space: nowrap;
+}
+/* カーソルで触れたときのアクション */
+.header-logo:hover {
+    filter: brightness(70%);
+}
+/* クリック時のアクション */
+.header-logo:active {
+    filter: brightness(70%);
 }
 .header-site-menu {
     position: absolute;
@@ -227,8 +236,6 @@ img{
 .to-paint-button{
 	display: none;
 }
-
-
 
 .footer {
     color: #ffffff;
