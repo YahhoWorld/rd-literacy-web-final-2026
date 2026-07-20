@@ -14,8 +14,10 @@ let height=null;
 let isFirstTime=true;
 
 const getClientXY = () => [
-	window.innerWidth,
-	window.innerHeight
+	// window.innerWidth,
+	// window.innerHeight
+	document.querySelector("html").clientWidth,
+	document.querySelector("html").clientHeight,
 ];
 
 let canvasCount = 0;
@@ -39,16 +41,16 @@ const createCanvas = (w, h,option) => {
 	const ctx = c.getContext("2d");
 	const [cx, cy] = getClientXY();
 	const scale=Math.min(cx/width,cy/height);
-	const [vx,vy]=[scale*width-10,scale*height-10];
-	c.style.width = `${vx}px`;
-	c.style.height = `${vy}px`;
-	c.width = vx * dpr;
-	c.height = vy * dpr;
-	c.style.touchAction="none";
-	ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+	// const [vx,vy]=[scale*width-10,scale*height-10];
+	// c.style.width = `${vx}px`;
+	// c.style.height = `${vy}px`;
+	// c.width = vx * dpr;
+	// c.height = vy * dpr;
+	// c.style.touchAction="none";
+	// ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
 	let id = nextId++;
-	let cvs = new Canvas(id, ctx, width, height, vx, vy,
+	let cvs = new Canvas(id, ctx, width, height,// vx, vy,
 		option==="w"||option==="t"?0xff:0x0,
 		option==="w"||option==="t"||option==="gb"?0xff:0x0,
 		option==="w"||option==="t"?0xff:0x0,
@@ -70,6 +72,8 @@ const createCanvas = (w, h,option) => {
 		zIndex:canvasIds.length,
 	};
 	// cvs.paintTest();
+	const [vx,vy]=getClientXY();
+	cvs.resizeCanvas(vx,vy);
 	ptr.set();
 	cvs.showCanvas();
 	canvasIds.push(id);
