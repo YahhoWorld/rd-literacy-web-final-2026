@@ -21,6 +21,10 @@ body {
 	padding: 5px;
 }
 
+canvas{
+	border: 1px solid white;
+}
+
 button {
 	all: unset;
 	display: inline-block;
