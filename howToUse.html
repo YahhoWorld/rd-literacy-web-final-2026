@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>研究開発リテラシー15班</title>
+    <meta name="description" content="#TODO">
+    <meta name="viewport" content="width=device-width">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <link href="css/common.css" rel="stylesheet">
+    <link href="css/content.css" rel="stylesheet">
+    <link href="css/howToUse.css" rel="stylesheet">
+    <!-- ドットのフォント -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a class="header-logo" href="index.html">
+                <img src="images/common/to_paint.png" alt="ロゴ">
+                <span>ホームへ</span>
+            </a>
+            <button class="toggle-menu-button"></button>
+            <div class="header-site-menu">
+                <nav class="site-menu">
+                    <ul>
+                        <li>
+                            <a class="site-menu-button" href="members.html">
+                                <img src="images/index/menu_button.png" alt="ロゴ">
+                                <span>作成者紹介</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="site-menu-button" href="information.html">
+                                <img src="images/index/menu_button.png" alt="ロゴ">
+                                <span>最新情報</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="menu-overlay"></div>
+    <div class="content">
+        <div class="content-inner">
+            <div class="news-item">
+                <div class="news-box">
+                    <h1>使い方</h1>
+                    <ul class="howToUse-list">
+                        <li>
+                        <dl>
+                            <dt>
+                                幅と高さを指定する。
+                            </dt>
+                            <dd>
+                                まずは作成する画像の幅と高さを決めましょう。
+                                一度決めると変えられないので注意が必要です。
+                            </dd>
+                            <dt>
+                                レイヤーを作成する。
+                            </dt>
+                            <dd>
+                                レイヤーを作成して、最初の画像を作りましょう。
+                                以下の初期画像から選べます。
+                                <ul>
+                                    <li>
+                                        白く塗りつぶされた画像。およそ一般的な絵に最適です。
+                                    </li>
+                                    <li>
+                                        黒く塗りつぶされた画像。腹黒いあなたに最適です。
+                                    </li>
+                                    <li>
+                                        グリーンバック。素材に最適です。
+                                    </li>
+                                    <li>
+                                        透過画像。これまた素材に最適です。
+                                    </li>
+                                </ul>
+                                レイヤーは後から追加することで、複数レイヤーにまたがったお絵描きができます。
+                            </dd>
+                            <dt>
+                                描こう！
+                            </dt>
+                            <dd>
+                                キャンバスに自由に描きましょう。
+                                マウスなら左クリック、タッチパネルなら指でなぞって描けます。
+                            </dd>
+                            <dt>
+                                ブラシを設定しよう。
+                            </dt>
+                            <dd>
+                                弘法筆を選ばず、でもあなたは弘法じゃないので筆は選んでください。
+                                ブラシの色、太さ、不透過度を、キャンバスの辺りにあるコントローラーから設定できます。
+                                自由に設定して上手く描きましょう。
+                            </dd>
+                            <dt>
+                                コントローラーが邪魔？そんな時は…
+                            </dt>
+                            <dd>
+                                せっかく用意してあげたコントローラーが邪魔だって？
+                                そんな罰当たりからはコントローラーを取り上げられます。
+                                左上のボタンを押すと、コントローラーの大きさの大小を切り替えられます。
+                                右上あたりをドラッグすると、コントローラーを動かせます。
+                            </dd>
+                            <dt>
+                                上手な絵が描けたら
+                            </dt>
+                            <dd>
+                                上手にお絵描きできたら、PNGでダウンロードして壁紙にでもしましょう。
+                                下の方にスクロールすると、PNGでダウンロードできるボタンがあります。
+                            </dd>
+                        </dl>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="to-paint">
+        <a class="to-paint-logo" href="paint.html">
+            <img src="images/index/to_paint.png" alt="ロゴ">
+            <span>Let's Paint!!!</span>
+        </a>
+        <button class="to-paint-button"></button>
+    </div>
+    <footer class="footer">
+        <div class="sns-links">
+            <!-- noopenerはモノページのｊｓを使わせないようにする、
+             noreferrerはリンク先にホームページの内容を送らないようにすること
+             つまり、乗っ取り対策とプライバシー保護-->
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                <img src="images/common/share_fb.png" alt="Facebook">
+            </a>
+
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer">
+                <img src="images/common/share_x_b.png" alt="X">
+            </a>
+
+            <a href="https://line.me" target="_blank" rel="noopener noreferrer">
+                <img src="images/common/share_ln.png" alt="LINE">
+            </a>
+        </div>
+
+
+        <!--<nav class="site-menu">
+            <ul>
+                <li><a href="concept.html">コンセプト</a></li>
+                <li><a href="members.html">メンバー</a></li>
+                <li><a href="access.html">アクセス</a></li>
+            </ul>
+        </nav>  -->
+        <p class="copyright"><small>&copy;15班</small></p>
+    </footer>
+    <script src="js/toggle-menu.js"></script>
+    <script src="js/fadein.js"></script>
+</body>
+
+</html>

@@ -4,7 +4,6 @@ window.addEventListener('load', function () {
     const overlay = document.querySelector('.menu-overlay');
 
     if (button && menu && overlay) {
-
         function closeMenu() {
             menu.classList.remove('is-show');
             overlay.classList.remove('is-show');
@@ -22,8 +21,6 @@ window.addEventListener('load', function () {
                 openMenu();
             }
         });
-
-        // 背景をクリックしたら閉じる
         overlay.addEventListener('click', closeMenu);
     }
 });

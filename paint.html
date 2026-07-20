@@ -40,9 +40,9 @@
             </li>
 
             <li>
-              <a class="site-menu-button" href="otherTool.html">
+              <a class="site-menu-button" href="howToUse.html">
                 <img src="images/index/menu_button.png" alt="ロゴ">
-                <span>他ツール紹介</span>
+                <span>使い方</span>
               </a>
             </li>
           </ul>
@@ -228,7 +228,7 @@
         0,
         Math.min(maxBarTop, e.clientY - bar.offsetHeight / 2)
       );
-      if(e.clientX<document.documentElement.scrollWidth/2)bar.classList.remove("reversed");
+      if (e.clientX < document.documentElement.scrollWidth / 2) bar.classList.remove("reversed");
       else bar.classList.add("reversed");
       const scrollTop = barTop / maxBarTop * maxScroll;
       window.scrollTo(0, scrollTop);
@@ -242,7 +242,7 @@
   </script>
 
   <script src="js/toggle-menu.js"></script>
-    <script src="js/fadein.js"></script>
+  <script src="js/fadein.js"></script>
 </body>
 
 </html>
