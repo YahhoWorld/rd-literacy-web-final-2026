@@ -256,6 +256,16 @@ body {
 	image-rendering: pixelated;
 }
 
+@media(max-width:350px) {
+	#make-canvas button {
+	padding: 2px;
+	margin: 5px;
+	font-size: 1rem;
+	width: 100%;
+	text-align: center;
+}
+}
+
 @media (max-width: 800px) {
 	#scroll-bar {
 		display: block;
