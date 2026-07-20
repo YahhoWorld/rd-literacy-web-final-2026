@@ -124,7 +124,7 @@ class Canvas {
 		const w = maxX - minX + 1;
 		const h = maxY - minY + 1;
 
-		this.offCtx.clearRect(minX,minY,maxX-minX+1,maxY-minY+1);
+		this.offCtx.clearRect(minX, minY, maxX - minX + 1, maxY - minY + 1);
 		this.imageData.data.set(this.pixels);	// ブラウザの仕様ズレ対策
 
 		this.offCtx.putImageData(
@@ -172,8 +172,15 @@ class Canvas {
 	}
 
 	resizeCanvas = (w, h) => {
-		const scale = Math.min(w / this.width, h / this.height);
-		const [vx, vy] = [(scale * this.width)-10 , (scale * this.height)-10 ];
+		// パディングを考慮
+		w-=10;h-=10;
+		// ビューポートに収まる倍率を計算し、最低でも1倍(等倍)を保証した整数倍率に丸める
+		const rawScale = Math.min(w / this.width, h / this.height);
+		this.scale = Math.max(1, Math.floor(rawScale));
+
+		// canvas要素のサイズは、確定した整数scaleから逆算する（ズレをなくす）
+		const [vx, vy] = [this.width * this.scale, this.height * this.scale];
+
 		const c = getCanvas(this.id).htmlcanv;
 		c.style.width = `${vx}px`;
 		c.style.height = `${vy}px`;
@@ -181,12 +188,11 @@ class Canvas {
 		c.height = vy * dpr;
 		c.style.touchAction = "none";
 		this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-		this.scale = Math.floor(Math.min(vx / this.width, vy / this.height));
-		this.vwidth = this.width*this.scale;
-		this.vheight = this.height*this.scale;
 
+		this.vwidth = vx;
+		this.vheight = vy;
 
-		console.log(`${this.vwidth}, ${this.vheight}`)
+		console.log(`${this.vwidth}, ${this.vheight}, scale:${this.scale}`);
 
 		this.showCanvas();
 	}
