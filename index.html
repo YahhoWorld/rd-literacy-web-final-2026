@@ -170,6 +170,13 @@
     <script src="js/toggle-menu.js"></script>
     <script src="js/fadein.js"></script>
     <script src="js/ink.js"></script>
+    <script>
+        const header = document.querySelector("header");
+        window.addEventListener("scroll", () => {
+            const limit=document.querySelector(".first-view").clientHeight-document.querySelector("header").clientHeight;
+            header.classList.toggle("header-show", window.scrollY > 10&&window.scrollY<limit);
+        });
+    </script>
 </body>
 
 </html>
