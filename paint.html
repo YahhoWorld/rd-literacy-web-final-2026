@@ -239,6 +239,15 @@
     window.addEventListener("scroll", positionScrollBar);
     canvasMakeEventListeners.push(positionScrollBar);
 
+    const setBg=()=>{
+      const c=getCanvas(canvasIds[canvasIds.length-1]);
+      const doc=document.createElement("div");
+      doc.classList.add("canvas-background");
+      doc.style.backgroundSize=`${c.canvas.scale}px ${c.canvas.scale}px`;
+      c.doc.appendChild(doc);
+    }
+
+    canvasMakeEventListeners.push(setBg);
   </script>
 
   <script src="js/toggle-menu.js"></script>
