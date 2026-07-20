@@ -39,9 +39,6 @@ class Canvas {
 		this.offCanvas.height = height;
 		this.offCtx = this.offCanvas.getContext("2d");
 
-		// 背景
-		this.background = "white";
-
 		console.log(`canvas made with w:${width}, h:${height}`);
 
 		this.id = id;
@@ -99,9 +96,7 @@ class Canvas {
 	}
 
 	showCanvas = () => {
-		this.offCtx.fillStyle = this.background;
 		this.offCtx.clearRect(0, 0, this.width, this.height);
-		this.offCtx.fillRect(0, 0, this.width, this.height);
 
 		const img = this.offCtx.createImageData(this.width, this.height);
 		img.data.set(this.pixels);
@@ -129,6 +124,9 @@ class Canvas {
 		const w = maxX - minX + 1;
 		const h = maxY - minY + 1;
 
+		this.offCtx.clearRect(minX,minY,maxX-minX+1,maxY-minY+1);
+		this.imageData.data.set(this.pixels);	// ブラウザの仕様ズレ対策
+
 		this.offCtx.putImageData(
 			this.imageData,
 			0,
@@ -146,6 +144,7 @@ class Canvas {
 			Math.ceil(maxY * this.scale),
 		]
 		this.ctx.imageSmoothingEnabled = false;
+		this.ctx.clearRect(minX * this.scale, minY * this.scale, w * this.scale, h * this.scale);
 
 		this.ctx.drawImage(
 			this.offCanvas,
@@ -184,7 +183,7 @@ class Canvas {
 		this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 		this.scale = Math.floor(Math.min(vx / this.width, vy / this.height));
 		this.vwidth = this.width*this.scale;
-		this.vheight = this.height*scale;
+		this.vheight = this.height*this.scale;
 
 
 		console.log(`${this.vwidth}, ${this.vheight}`)
