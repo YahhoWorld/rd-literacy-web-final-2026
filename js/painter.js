@@ -19,36 +19,56 @@ class Painter {
 		this.timeline = null;
 
 		// 現在の操作
-		this.cmd=null;
+		this.cmd = null;
 
 		// 初期化
 		this.paintWays = new Map();
 		this.paintWays.set(PAINTMODE_STROKE_RECT, {
 			start: () => {
 				this.startPaint();
-				const [x,y]=this.canvas.offsetToRealLocal(this.pointerX,this.pointerY);
-				const [minX,minY,maxX,maxY]=this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
+				const [x, y] = this.canvas.offsetToRealLocal(this.pointerX, this.pointerY);
+				const [minX, minY, maxX, maxY] = this.cmd.addPoint([x, y], this.canvas.pixels, this.canvas.width, this.canvas.height);
 				// this.canvas.showCanvas();
-				this.canvas.updateRect(minX,minY,maxX,maxY);
+				this.canvas.updateRect(minX, minY, maxX, maxY);
 			},
 			frame: () => {
-				const [x,y]=this.canvas.offsetToRealLocal(this.pointerX,this.pointerY);
-				const [minX,minY,maxX,maxY]=this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
-				this.canvas.updateRect(minX,minY,maxX,maxY);
+				const [x, y] = this.canvas.offsetToRealLocal(this.pointerX, this.pointerY);
+				const [lastX, lastY] = this.cmd.points[this.cmd.points.length - 1];
+				const diff = Math.sqrt((lastX - x) * (lastX - x) + (lastY - y) * (lastY - y));
+				for (let i = 1; i < diff; i += 1) {
+					const [bridgeX, bridgeY] = [
+						lastX + i * (x - lastX) / diff,
+						lastY + i * (y - lastY) / diff,
+					]
+					const [minX, minY, maxX, maxY] = this.cmd.addPoint([bridgeX, bridgeY], this.canvas.pixels, this.canvas.width, this.canvas.height);
+					this.canvas.updateRect(minX, minY, maxX, maxY);
+				}
+				const [minX, minY, maxX, maxY] = this.cmd.addPoint([x, y], this.canvas.pixels, this.canvas.width, this.canvas.height);
+				this.canvas.updateRect(minX, minY, maxX, maxY);
 			},
 			end: () => this.commitCommand()
 		});
 		this.paintWays.set(PAINTMODE_STROKE_CIRCLE, {
 			start: () => {
 				this.startPaint();
-				const [x,y]=this.canvas.offsetToRealLocal(this.pointerX,this.pointerY);
-				const [minX,minY,maxX,maxY]=this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
-				this.canvas.updateRect(minX,minY,maxX,maxY);
+				const [x, y] = this.canvas.offsetToRealLocal(this.pointerX, this.pointerY);
+				const [minX, minY, maxX, maxY] = this.cmd.addPoint([x, y], this.canvas.pixels, this.canvas.width, this.canvas.height);
+				this.canvas.updateRect(minX, minY, maxX, maxY);
 			},
 			frame: () => {
-				const [x,y]=this.canvas.offsetToRealLocal(this.pointerX,this.pointerY);
-				const [minX,minY,maxX,maxY]=this.cmd.addPoint([x,y],this.canvas.pixels,this.canvas.width,this.canvas.height);
-				this.canvas.updateRect(minX,minY,maxX,maxY);
+				const [x, y] = this.canvas.offsetToRealLocal(this.pointerX, this.pointerY);
+				const [lastX, lastY] = this.cmd.points[this.cmd.points.length - 1];
+				const diff = Math.sqrt((lastX - x) * (lastX - x) + (lastY - y) * (lastY - y));
+				for (let i = 1; i < diff; i += 1) {
+					const [bridgeX, bridgeY] = [
+						lastX + i * (x - lastX) / diff,
+						lastY + i * (y - lastY) / diff,
+					]
+					const [minX, minY, maxX, maxY] = this.cmd.addPoint([bridgeX, bridgeY], this.canvas.pixels, this.canvas.width, this.canvas.height);
+					this.canvas.updateRect(minX, minY, maxX, maxY);
+				}
+				const [minX, minY, maxX, maxY] = this.cmd.addPoint([x, y], this.canvas.pixels, this.canvas.width, this.canvas.height);
+				this.canvas.updateRect(minX, minY, maxX, maxY);
 			},
 			end: () => this.commitCommand()
 		});
@@ -69,14 +89,14 @@ class Painter {
 		});
 	}
 
-	commitCommand(){
+	commitCommand() {
 		this.timeline.action(this.cmd);
 		console.log(`paint end, dirty rect: ${this.cmd.bounds}`);
-		this.cmd=null;
+		this.cmd = null;
 	}
 
 	startPaint() {
-		this.cmd=new Command(this.paintMode,this.brush.r,this.brush.g,this.brush.b,this.brush.a,this.thickness);
+		this.cmd = new Command(this.paintMode, this.brush.r, this.brush.g, this.brush.b, this.brush.a, this.thickness);
 	}
 
 	addAction() {
@@ -99,10 +119,10 @@ class Painter {
 		this.brush.a = parseInt(this.controller.querySelector(".a").value);
 		const winput = this.controller.querySelector(".weight").value;
 		this.thickness = Number(winput);
-		this.paintMode=Number(this.controller.querySelector(`input[name='shape-${this.id}']:checked`).value);
+		this.paintMode = Number(this.controller.querySelector(`input[name='shape-${this.id}']:checked`).value);
 		console.log(this.paintMode)
-		const layerZ=Number(this.controller.querySelector(".layer-z").value);
-		getCanvas(this.id).z=layerZ;
+		const layerZ = Number(this.controller.querySelector(".layer-z").value);
+		getCanvas(this.id).z = layerZ;
 		console.log(`read contoller brush: ${this.brush}`);
 	}
 
@@ -118,27 +138,27 @@ class Painter {
 		c.addEventListener("pointermove", this.mousemoveEventListener);
 		c.addEventListener("pointerdown", this.mousedownEventListener);
 		c.addEventListener("pointerup", this.mouseupEventListener);
-		c.addEventListener("mouseleave",this.mouseupEventListener);
+		c.addEventListener("mouseleave", this.mouseupEventListener);
 
 		const fragment = document.getElementById("canvas-controller-template").content.cloneNode(true);
 		fragment.querySelector("form").addEventListener("change", () => this.getController());
 		fragment.querySelector(".undo-button").addEventListener("click", (e) => { e.preventDefault(); this.undo(); });
 		fragment.querySelector(".redo-button").addEventListener("click", (e) => { e.preventDefault(); this.redo(); });
-		fragment.querySelector(".go-next").addEventListener("click", (e) => { e.preventDefault(); window.scroll(0,window.scrollY+this.canvas.vheight+5); });
-		fragment.querySelector(".go-previous").addEventListener("click", (e) => { e.preventDefault(); window.scroll(0,window.scrollY-this.canvas.vheight-5); });
+		fragment.querySelector(".go-next").addEventListener("click", (e) => { e.preventDefault(); window.scroll(0, window.scrollY + this.canvas.vheight + 5); });
+		fragment.querySelector(".go-previous").addEventListener("click", (e) => { e.preventDefault(); window.scroll(0, window.scrollY - this.canvas.vheight - 5); });
 		fragment.querySelector(".justify-content").addEventListener("click", (e) => {
 			e.preventDefault();
-			const [x,y]=getClientXY();
-			getCanvas(this.id).canvas.resizeCanvas(x,y);
+			const [x, y] = getClientXY();
+			getCanvas(this.id).canvas.resizeCanvas(x, y);
 			getCanvas(this.id).doc.scrollIntoView();
 		});
-		fragment.id=`ctrid-${this.id}`;
+		fragment.id = `ctrid-${this.id}`;
 		fragment.querySelectorAll("input[name='shape']").forEach(element => {
-			element.name=`shape-${this.id}`;
+			element.name = `shape-${this.id}`;
 		});
 		this.controller = fragment.querySelector(".canvas-controller");
-		this.controller.querySelector(".layer-z").value=getCanvas(this.id).zIndex;
-		changeDraggable(this.controller,this.controller.querySelector(".hover-bar"));
+		this.controller.querySelector(".layer-z").value = getCanvas(this.id).zIndex;
+		changeDraggable(this.controller, this.controller.querySelector(".hover-bar"));
 		cn.doc.appendChild(fragment);
 		this.canvas = cn.canvas;
 
@@ -161,7 +181,7 @@ class Painter {
 		c.showCanvas();
 	}
 
-	refreshCanvas(){
+	refreshCanvas() {
 		const c = getCanvas(this.id).canvas;
 		// TODO: コマンドの整理をここに書いた方が良いかも
 		this.timeline.reload(c);
